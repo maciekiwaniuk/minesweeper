@@ -1,0 +1,10 @@
+.center-vertically {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.margin-left-right-auto {
+    margin-left: auto;
+    margin-right: auto;
+}

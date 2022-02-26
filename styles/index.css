@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: grey;
+}
+
+.test1 {
+    background-color: orange;
+}
+
+
+.container-height {
+    height: 100vh;
+}
+
+
+@media (min-width: 400px) {
+    .container-width {
+        width: 100vw;
+    }
+}
+
+@media (min-width: 600px) {
+    .container-width {
+        width: 90vw;
+    }
+}
+
+@media (min-width: 1000px) {
+    .container-width {
+        width: 75vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-width {
+        width: 60vw;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-width {
+        width: 50vw;
+    }
+}
