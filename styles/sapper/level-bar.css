@@ -1,0 +1,8 @@
+.level-bar {
+    width: 100%;
+    height: 10vh;
+    float: left;
+    background-color: floralwhite;
+    display: flex;
+    text-align: justify;
+}

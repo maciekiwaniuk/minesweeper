@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <title>Saper</title>
+    <title></title>
 
+    <!-- meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- favicon-->
+    <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
 
-    <link href="styles/index.css" type="text/css" rel="stylesheet">
+    <!-- css -->
+    <link href="styles/container.css" type="text/css" rel="stylesheet">
+    <link href="styles/header.css" type="text/css" rel="stylesheet">
     <link href="styles/classes.css" type="text/css" rel="stylesheet">
+    <link href="styles/sapper/board.css" type="text/css" rel="stylesheet">
+    <link href="styles/sapper/info-bar.css" type="text/css" rel="stylesheet">
+    <link href="styles/sapper/level-bar.css" type="text/css" rel="stylesheet">
+
+    <!-- js-cookie plugin -->
+    <script src="assets/plugins/js-cookie/js.cookie.min.js"></script>
+
+    <!-- scripts -->
+    <script src="scripts/main.js" type="module"></script>
+    <script src="scripts/translations.js" type="module"></script>
 </head>
 <body>
     
-    <div class="container-width container-height margin-left-right-auto test1">
+    <div class="container-width container-height margin-left-right-auto">
         
-        <div class="game-info-bar"></div>
-
-        <div class="game-board"></div>
-
-        <div class="game-level-bar"></div>
+        <div class="header center-vertically">
+            <div id="header-text"></div>
+        </div>
 
     </div>
-
+    
 </body>
 </html>
