@@ -3,7 +3,6 @@ export default class Translations {
         this.languageCookieName = 'selected-language';
         this.defaultLanguage = 'en';
         this.selectedLanguage = this.getLanguageCookieValue();
-        this.translationsDict = this.getTranslationsPromiseDictOfSpecificLanguage(this.selectedLanguage);
     }
 
     /**
@@ -36,15 +35,25 @@ export default class Translations {
     /**
      * Return dictionary with translations of specific language
      */
-    getTranslationsPromiseDictOfSpecificLanguage(language) {
-        let promiseTransDict = fetch('../translations/'+language+'/trans.json')
-        .then(function (response) {
+    getTransPromiseDictOfSpecificLanguage(language) {
+        return fetch('../translations/'+language+'/trans.json').then(function (response) {
             return response.json();
-        }).then(function (jsonData) {
-            return jsonData;
         });
+    }
 
-        return promiseTransDict;
+    /**
+     * Return currently selected language
+     */
+    getSelectedLanguage() {
+        this.createDefaultLanguageCookieIfNotExists();
+        return Cookies.get(this.languageCookieName);
+    }
+
+    /**
+     * Change selected language
+     */
+    changeSelectedLanguage(language) {
+        Cookies.set(this.languageCookieName, language);
     }
     
 }
