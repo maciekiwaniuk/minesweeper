@@ -3,38 +3,24 @@ import Translations from "../scripts/translations.js";
 class Main {
     constructor() {
         this.translations = new Translations();
-        this.setTextContentOfAllElements()
+        this.initializeEvents();
     }
 
     /**
-     * Return Promise of dictionary with text content of selected language
+     * Assign specific events to specific elements
      */
-    getTranslationPromiseDict() {
-        return this.translations.getTransPromiseDictOfSpecificLanguage(
-            this.translations.getLanguageCookieValue()
-        );
-    }
+    initializeEvents() {
+        var self = this;
 
-    /**
-     * Set text content of all elements
-     */
-    setTextContentOfAllElements() {
-        this.getTranslationPromiseDict().then(function (transDict) {
-            document.title = transDict.title;
-
-            document.getElementById('header-text').textContent = transDict.title;
-        })
+        // change language to polish
+        document.getElementById('polish-flag').addEventListener('click', function() {
+            self.translations.changeSelectedLanguage('pl');
+        });
+        // change language to english
+        document.getElementById('english-flag').addEventListener('click', function() {
+            self.translations.changeSelectedLanguage('en');
+        });
     }
 }
 
 var main = new Main();
-
-document.getElementById('polish-flag').addEventListener('click', function() {
-    main.translations.changeSelectedLanguage('pl');
-    main.setTextContentOfAllElements();
-});
-
-document.getElementById('english-flag').addEventListener('click', function() {
-    main.translations.changeSelectedLanguage('en');
-    main.setTextContentOfAllElements();
-});

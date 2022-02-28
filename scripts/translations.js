@@ -3,6 +3,8 @@ export default class Translations {
         this.languageCookieName = 'selected-language';
         this.defaultLanguage = 'en';
         this.selectedLanguage = this.getLanguageCookieValue();
+
+        this.setTextContentOfAllElements();
     }
 
     /**
@@ -42,6 +44,15 @@ export default class Translations {
     }
 
     /**
+     * Return Promise of dictionary with text content of selected language
+     */
+    getTranslationPromiseDict() {
+        return this.getTransPromiseDictOfSpecificLanguage(
+            this.getLanguageCookieValue()
+        );
+    }
+
+    /**
      * Return currently selected language
      */
     getSelectedLanguage() {
@@ -54,6 +65,26 @@ export default class Translations {
      */
     changeSelectedLanguage(language) {
         Cookies.set(this.languageCookieName, language);
+        this.setTextContentOfAllElements();
     }
     
+    /**
+     * Set text content with selected language of all elements
+     */
+     setTextContentOfAllElements() {
+        this.getTranslationPromiseDict().then(function (transDict) {
+            document.title = transDict.title;
+
+            // header
+            document.getElementById('header-text').textContent = transDict.header;
+
+            // game info bar
+            document.getElementById('level-of-difficulty-label').textContent = transDict.info_bar.level_of_difficulty.title + ':';
+            document.getElementById('amount-of-mines-label').textContent = transDict.info_bar.amount_of_mines + ':';
+            document.getElementById('personal-record-label').textContent = transDict.info_bar.personal_record + ':';
+            document.getElementById('game-time-label').textContent = transDict.info_bar.game_time + ':';
+
+        });
+    }
+
 }

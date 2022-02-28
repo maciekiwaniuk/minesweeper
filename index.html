@@ -12,13 +12,15 @@
     <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon"/>
 
     <!-- css -->
+    <link href="styles/classes.css" type="text/css" rel="stylesheet">
     <link href="styles/index.css" type="text/css" rel="stylesheet">
     <link href="styles/container.css" type="text/css" rel="stylesheet">
     <link href="styles/header.css" type="text/css" rel="stylesheet">
-    <link href="styles/classes.css" type="text/css" rel="stylesheet">
-    <link href="styles/sapper/board.css" type="text/css" rel="stylesheet">
-    <link href="styles/sapper/info-bar.css" type="text/css" rel="stylesheet">
-    <link href="styles/sapper/level-bar.css" type="text/css" rel="stylesheet">
+    <link href="styles/footer.css" type="text/css" rel="stylesheet">
+    <link href="styles/game-content/game-content.css" type="text/css" rel="stylesheet">
+    <link href="styles/game-content/board.css" type="text/css" rel="stylesheet">
+    <link href="styles/game-content/info-bar.css" type="text/css" rel="stylesheet">
+    <link href="styles/game-content/level-bar.css" type="text/css" rel="stylesheet">
 
     <!-- js-cookie plugin -->
     <script src="assets/plugins/js-cookie/js.cookie.min.js"></script>
@@ -29,8 +31,9 @@
 </head>
 <body>
     
-    <div class="container-width container-height margin-left-right-auto">
+    <div class="container margin-left-right-auto">
         
+        <!-- header -->
         <div class="header center-vertically">
             <div id="header-text"></div>
 
@@ -38,6 +41,43 @@
                 <span id="polish-flag" class="flag-icon flag-icon-pol"></span>
                 <span id="english-flag" class="flag-icon flag-icon-eng"></span>
             </div>
+        </div>
+
+        <!-- game content -->
+        <div class="game-content">
+            <div class="info-bar">
+
+                <div class="info-bar-content">
+                    <div class="info-bar-element">
+                        <div id="level-of-difficulty-label"></div>
+                        <div id="level-of-difficulty"></div>
+                    </div>
+                    
+                    <div class="info-bar-element">
+                        <div id="amount-of-mines-label"></div>
+                        <div id="amount-of-mines"></div>
+                    </div>
+                </div>
+
+                <div class="info-bar-content">
+                    <div class="info-bar-element">
+                        <div id="personal-record-label"></div>
+                        <div id="personal-record"></div>
+                    </div>
+                    
+                    <div class="info-bar-element">
+                        <div id="game-time-label"></div>
+                        <div id="game-time"></div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <!-- footer -->
+        <div class="footer">
+
         </div>
 
     </div>

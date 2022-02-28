@@ -1,3 +1,16 @@
 {
-    "title": "Saper"
+    "title": "Saper",
+    "header": "Saper",
+    "info_bar": {
+        "level_of_difficulty": {
+            "title": "Poziom trudności",
+            "beginner": "Początkujący",
+            "intermediate": "Wprawiony",
+            "expert": "Ekspert",
+            "real_saper": "Prawdziwy saper"
+        },
+        "amount_of_mines": "Ilość min",
+        "personal_record": "Rekord",
+        "game_time": "Czas"
+    }
 }

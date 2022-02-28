@@ -1,4 +1,16 @@
 {
     "title": "Sapper",
-    "header": "Sapper"
+    "header": "Sapper",
+    "info_bar": {
+        "level_of_difficulty": {
+            "title": "Level of difficulty",
+            "beginner": "Beginner",
+            "intermediate": "Intermediate",
+            "expert": "Expert",
+            "real_saper": "Real saper"
+        },
+        "amount_of_mines": "Amount of mines",
+        "personal_record": "Record",
+        "game_time": "Time"
+    }
 }

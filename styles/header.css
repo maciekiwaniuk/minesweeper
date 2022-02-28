@@ -10,7 +10,6 @@
     font-size: 4rem;
     font-weight: 700;
 }
-
 @media (min-width: 1000px) {
     #header-text {
         font-size: 5rem;
@@ -40,10 +39,10 @@
     cursor: pointer;
 }
 .flag-icon-eng {
-    background-image: url(../assets/plugins/flag-icons-master/eng.svg); 
+    background-image: url('../assets/plugins/flag-icons-master/eng.svg'); 
 }
 .flag-icon-pol {
-    background-image: url(../assets/plugins/flag-icons-master/pol.svg); 
+    background-image: url('../assets/plugins/flag-icons-master/pol.svg'); 
 }
 
 .selected-flag-border {
