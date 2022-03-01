@@ -1,6 +1,21 @@
-.board {
-    width: 100%;
-    height: 60vh;
+.board-area {
     float: left;
-    background-color: green;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 53vh;
+    background-color: rgb(110, 228, 110);
+}
+
+.board-area .board {
+    width: 100vw;
+    height: 100vw;
+    background-color: rgb(240, 166, 166);
+    border: solid grey 2px;
+}
+@media (min-width: 467px) {
+    .board-area .board {
+        width: 50vh;
+        height: 50vh;
+    }
 }

@@ -1,16 +1,23 @@
 {
     "title": "Saper",
     "header": "Saper",
-    "info_bar": {
-        "level_of_difficulty": {
-            "title": "Poziom trudności",
-            "beginner": "Początkujący",
-            "intermediate": "Wprawiony",
-            "expert": "Ekspert",
-            "real_saper": "Prawdziwy saper"
-        },
-        "amount_of_mines": "Ilość min",
-        "personal_record": "Rekord",
-        "game_time": "Czas"
+    "difficultyLevels": {
+        "beginner": "Początkujący",
+        "intermediate": "Wprawiony",
+        "expert": "Ekspert",
+        "realSapper": "Prawdziwy saper"
+    },
+    "infoBar": {
+        "levelOfDifficulty": "Poziom trudności",
+        "amountOfMines": "Ilość min",
+        "personalRecord": "Rekord",
+        "gameTime": "Czas"
+    },
+    "levelBar": {
+        "newGame": "Nowa gra"
+    },
+    "footer": {
+        "author": "Maciek Iwaniuk",
+        "text": "2022 © Wszelkie prawa zastrzeżone"
     }
 }

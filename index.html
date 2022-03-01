@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="pl">
+<!-- lang attribute of html tag is set in translation.js -->
+<html>
 <head>
+    <!-- title is set in translations.js -->
     <title></title>
 
     <!-- meta -->
@@ -22,12 +24,21 @@
     <link href="styles/game-content/info-bar.css" type="text/css" rel="stylesheet">
     <link href="styles/game-content/level-bar.css" type="text/css" rel="stylesheet">
 
+    <!-- flag-icons-master plugin -->
+    <link href="assets/plugins/flag-icons-master/css/flags.css" type="text/css" rel="stylesheet">
+
     <!-- js-cookie plugin -->
     <script src="assets/plugins/js-cookie/js.cookie.min.js"></script>
 
     <!-- scripts -->
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/translations.js" type="module"></script>
+    <script src="scripts/minesweeper/minesweeper.js" type="module"></script>
+    <script src="scripts/minesweeper/user_data.js" type="module"></script>
+
+    <!-- load translation json files as scripts because of github pages problems -->
+    <script src="./translations/en/trans.json" type="application/json"></script>
+    <script src="./translations/pl/trans.json" type="application/json"></script>
 </head>
 <body>
     
@@ -45,39 +56,57 @@
 
         <!-- game content -->
         <div class="game-content">
-            <div class="info-bar">
 
-                <div class="info-bar-content">
-                    <div class="info-bar-element">
-                        <div id="level-of-difficulty-label"></div>
-                        <div id="level-of-difficulty"></div>
+            <!-- info bar -->
+            <div class="info-bar">
+                <div class="content">
+                    <div class="element center-vertically">
+                        <span id="level-of-difficulty-label"></span>
+                        <span id="level-of-difficulty-value"></span>
                     </div>
                     
-                    <div class="info-bar-element">
-                        <div id="amount-of-mines-label"></div>
-                        <div id="amount-of-mines"></div>
+                    <div class="element center-vertically">
+                        <span id="amount-of-mines-label"></span>
+                        <span id="amount-of-mines-value"></span>
                     </div>
                 </div>
 
-                <div class="info-bar-content">
-                    <div class="info-bar-element">
-                        <div id="personal-record-label"></div>
-                        <div id="personal-record"></div>
+                <div class="content">
+                    <div class="element center-vertically">
+                        <span id="personal-record-label"></span>
+                        <span id="personal-record-value"></span>
                     </div>
                     
-                    <div class="info-bar-element">
-                        <div id="game-time-label"></div>
-                        <div id="game-time"></div>
+                    <div class="element center-vertically">
+                        <span id="game-time-label"></span>
+                        <span id="game-time-value"></span>
                     </div>
                 </div>
             </div>
 
+            <!-- board -->
+            <div class="board-area">
+                <div class="board"></div>
+            </div>
             
+            <!-- level bar -->
+            <div class="level-bar">
+
+                <select id="select-level">
+                    <option id="beginner-level" value="beginner"></option>
+                    <option id="intermediate-level" value="intermediate"></option>
+                    <option id="expert-level" value="expert"></option>
+                    <option id="real-sapper-level" value="real-saper"></option>
+                </select>
+
+                <button id="new-game-button">Nowa gra</button>
+
+            </div>
         </div>
 
         <!-- footer -->
-        <div class="footer">
-
+        <div class="footer center-vertically">
+            <span id="footer-text"></span>
         </div>
 
     </div>

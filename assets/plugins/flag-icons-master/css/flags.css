@@ -1,0 +1,25 @@
+.flag-icon {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat; 
+    position: relative;
+    display: inline-block;
+    width: 1.3333333333em;
+    line-height: 1em;
+}
+
+.flag-icon:before {
+    content: " "; 
+}
+
+.flag-icon:hover {
+    cursor: pointer;
+}
+
+.flag-icon-eng {
+    background-image: url('../flags/eng.svg'); 
+}
+
+.flag-icon-pol {
+    background-image: url('../flags/pol.svg'); 
+}
