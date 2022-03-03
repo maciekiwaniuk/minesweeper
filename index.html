@@ -34,15 +34,12 @@
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/translations.js" type="module"></script>
     <script src="scripts/minesweeper/minesweeper.js" type="module"></script>
+    <script src="scripts/minesweeper/board.js" type="module"></script>
     <script src="scripts/minesweeper/user_data.js" type="module"></script>
-
-    <!-- load translation json files as scripts because of github pages problems -->
-    <script src="./translations/en/trans.json" type="application/json"></script>
-    <script src="./translations/pl/trans.json" type="application/json"></script>
 </head>
 <body>
     
-    <div class="container margin-left-right-auto">
+    <div class="container">
         
         <!-- header -->
         <div class="header center-vertically">
@@ -85,8 +82,8 @@
             </div>
 
             <!-- board -->
-            <div class="board-area">
-                <div class="board"></div>
+            <div id="board-area" class="board-area-general">
+                <div id="board"></div>
             </div>
             
             <!-- level bar -->

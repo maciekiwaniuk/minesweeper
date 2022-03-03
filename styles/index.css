@@ -3,9 +3,15 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Oswald', sans-serif;
 }
 
 body {
     background-color: grey;
+}
+
+/** set default font-size to 62,5% so 1rem = 10px **/
+html {
+    font-size: 62,5%;
 }
