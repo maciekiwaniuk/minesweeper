@@ -6,7 +6,7 @@ export default class Minesweeper {
 
         this.boardSize = this.getBoardSize();
         this.bombsAmount = this.getBombsAmount();
-        this.gameBoardArray = this.getGameBoardStructureArray();
+        this.gameBoardStructure = this.getGameBoardStructure();
 
         this.restartGame();
         this.assignEvents();
@@ -28,7 +28,7 @@ export default class Minesweeper {
     /**
      * Assign click on field event
      */
-    assignClickOnFieldsEvent() {
+    assignClickEventOnFields() {
         const boardFields = document.querySelectorAll('.board-field');
         boardFields.forEach((field) => {
             field.addEventListener('click', () => {
@@ -61,6 +61,8 @@ export default class Minesweeper {
                 field.setAttribute('data-field-y', y);
                 field.classList.add(fieldClassName);
                 field.classList.add('board-field');
+                field.classList.add('center-verically');
+                field.innerHTML = this.gameBoardStructure[x][y];
                 board.appendChild(field);
             }
         }
@@ -100,7 +102,7 @@ export default class Minesweeper {
     restartGame() {
         this.refreshUserData();
         this.initializeBoard();
-        this.assignClickOnFieldsEvent();
+        this.assignClickEventOnFields();
     }
 
     /**
@@ -147,7 +149,7 @@ export default class Minesweeper {
     /**
      * 
      */
-    getGameBoardStructureArray() {
+    getGameBoardStructure() {
         const self = this;
 
         var generatedUniqueBombPositions = 0;
@@ -176,26 +178,42 @@ export default class Minesweeper {
         for (let x = 0; x < self.boardSize; x++) {
             for (let y = 0; y < self.boardSize; y++) {
 
-                //  [x-1][y-1]  [x][y-1]  [x+1][y-1]
-                //  [x-1][y]     bomb     [x+1][y]
-                //  [x-1][y+1]  [x][y+1]  [x+1][y+1]
-                
+                // [x-1][y-1]  [x-1][y]  [x-1][y+1]
+                // [x][y-1]      bomb    [x][y+1]
+                // [x+1][y-1]  [x+1][y]  [x+1][y+1]
+
                 // field contains bomb
                 if (gameBoardStructure[x][y] == 'mine') {
+                    // increase amount of bombs opposite field in specific field
 
+                    // first column
+                    if (x - 1 >= 0 && y - 1 >= 0 && gameBoardStructure[x-1][y-1] != 'mine') gameBoardStructure[x-1][y-1] += 1;
+                    if (y - 1 >= 0 && gameBoardStructure[x][y-1] != 'mine') gameBoardStructure[x][y-1] += 1;
+                    if (x + 1 < self.boardSize && y - 1 >= 0 && gameBoardStructure[x+1][y-1] != 'mine') gameBoardStructure[x+1][y-1] += 1;
 
+                    // second column
+                    if (x - 1 >= 0 && y >= 0 && gameBoardStructure[x-1][y] != 'mine') gameBoardStructure[x-1][y] += 1;
+                    if (x + 1 < self.boardSize && y >= 0 && gameBoardStructure[x+1][y] != 'mine') gameBoardStructure[x+1][y] += 1;
+
+                    // third column
+                    if (x - 1 >= 0 && y + 1 < self.boardSize && gameBoardStructure[x-1][y+1] != 'mine') gameBoardStructure[x-1][y+1] += 1;
+                    if (y + 1 < self.boardSize && gameBoardStructure[x][y+1] != 'mine') gameBoardStructure[x][y+1] += 1;
+                    if (x + 1 < self.boardSize && y + 1 < self.boardSize && gameBoardStructure[x+1][y+1] != 'mine') gameBoardStructure[x+1][y+1] += 1;
                 }
             }
         }
 
         console.log(gameBoardStructure);
+
         return gameBoardStructure;
     }
 
     /**
      * Check if coordinates of field opposite to bomb is not behind board
      */
-    checkF
+    drawOnFields() {
+        
+    }
 
 }
 
