@@ -9,11 +9,11 @@
 }
 
 .level-bar #select-level {
-    width: 25%;
+    min-width: 25%;
     height: 3vh;
 }
 
 .level-bar #new-game-button {
-    width: 15%;
+    min-width: 15%;
     height: 3vh;
 }

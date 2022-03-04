@@ -28,7 +28,7 @@ export default class UserData {
                 'beginner': 0,
                 'intermediate': 0,
                 'expert': 0,
-                'realSapper': 0
+                'real-sapper': 0
             },
             selectedLevel: 'beginner'
         };

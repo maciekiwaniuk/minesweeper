@@ -1,21 +1,21 @@
 .container {
-    height: 100vh;
+    min-height: 100vh;
     margin: auto;
 }
 
 @media (min-width: 400px) {
     .container {
-        width: 100%;
+        max-width: 100%;
     }
 }
 
 @media (min-width: 1000px) {
     .container {
-        width: 90%;
+        max-width: 90%;
     }
 }
 @media (min-width: 1500px) {
     .container {
-        width: 80%;
+        max-width: 80%;
     }
 }

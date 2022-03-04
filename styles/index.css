@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
+:root {
+    --field-color: rgb(184, 179, 181);
+    --field-hover-color: rgb(106, 98, 101);
+}
+
 * {
     margin: 0;
     padding: 0;

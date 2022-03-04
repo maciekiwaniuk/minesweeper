@@ -1,13 +1,15 @@
 .board-area-general {
-    /* float: left; */
+    float: left;
     display: flex;
     justify-content: center;
 }
-.board-area-general #board {
-    background-color: rgb(240, 166, 166);
-}
-#board .board-field {
+.board-field {
     float: left;
+    background-color: var(--field-color);
+}
+.board-field:hover {
+    cursor: pointer;
+    background-color: var(--field-hover-color);
 }
 
 /** Beginner difficulty level - 10x10 fields **/
@@ -15,9 +17,6 @@
     width: 100%;
     height: 104vw;
     padding-bottom: 4vw;
-    float: left;
-    display: flex;
-    justify-content: center;
 }
 .beginner-board {
     width: 100vw;
@@ -28,7 +27,6 @@
     height: 10vw;
     border: solid black 0.1rem;
 }
-
 @media (min-width: 30rem) {
     .beginner-board-area {
         height: 31rem;
@@ -76,4 +74,20 @@
     width: 5vw;
     height: 5vw;
     border: solid black 0.1rem;
+}
+@media (min-width: 30rem) {
+    .real-saper-board-area {
+        height: 32rem;
+        padding-bottom: 2vw;
+        background-color: orangered;
+    }
+    .real-saper-board {
+        width: 30rem;
+        height: 30rem;
+    }
+    .real-saper-field {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: solid black 0.1rem;
+    }
 }

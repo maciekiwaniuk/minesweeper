@@ -1,20 +1,20 @@
 .info-bar {
     float: left;
-    width: 100%;
-    height: 12vh;
+    min-width: 100%;
+    min-height: 12vh;
     background-color: rgb(242, 163, 163);
 }
 
  .info-bar .content {
     float: left;
-    width: 100%;
-    height: 6vh;
+    min-width: 100%;
+    min-height: 6vh;
     background-color: aqua;
 }
 
 .info-bar .element {
     float: left;
-    width: 50%;
-    height: 6vh;
+    min-width: 50%;
+    min-height: 6vh;
     background-color: aliceblue;
 }
