@@ -12,13 +12,9 @@ export default class Minesweeper {
      * Assign specific events to specific elements
      */
     assignEvents() {
-        const self = this;
-
         document.getElementById('new-game-button').addEventListener('click', () => {
-            self.initializeGame();
+            this.initializeGame();
         });
-        
-        
     }
 
     /**
@@ -79,23 +75,21 @@ export default class Minesweeper {
      * Return game board structure as filled two dimensional array
      */
      getGameBoardStructure() {
-        const self = this;
-
         var generatedUniqueBombPositions = 0;
         const gameBoardStructure = [];
 
         // generate two dimensional array - empty board structure
-        for (let x = 0; x < self.boardSize; x++) {
+        for (let x = 0; x < this.boardSize; x++) {
             gameBoardStructure[x] = [];
-            for (let y = 0; y < self.boardSize; y++) {
+            for (let y = 0; y < this.boardSize; y++) {
                 gameBoardStructure[x][y] = 0;
             }
         }
 
         // fill board structure with specified amount of bombs
         while (generatedUniqueBombPositions != this.bombsAmount) {
-            let randomBombPositionX = Math.floor(Math.random() * self.boardSize);
-            let randomBombPositionY = Math.floor(Math.random() * self.boardSize);
+            let randomBombPositionX = Math.floor(Math.random() * this.boardSize);
+            let randomBombPositionY = Math.floor(Math.random() * this.boardSize);
 
             if (gameBoardStructure[randomBombPositionX][randomBombPositionY] != 'mine') {
                 gameBoardStructure[randomBombPositionX][randomBombPositionY] = 'mine';
@@ -103,9 +97,9 @@ export default class Minesweeper {
             }
         }
 
-        // fill board structure with numbers which means amount of opposite fields that contain bomb
-        for (let x = 0; x < self.boardSize; x++) {
-            for (let y = 0; y < self.boardSize; y++) {
+        // fill board structure with numbers which means amount of adjoin fields that contain bomb
+        for (let x = 0; x < this.boardSize; x++) {
+            for (let y = 0; y < this.boardSize; y++) {
 
                 // [x-1][y-1]  [x-1][y]  [x-1][y+1]
                 // [x][y-1]      bomb    [x][y+1]
@@ -113,25 +107,26 @@ export default class Minesweeper {
 
                 // field contains bomb
                 if (gameBoardStructure[x][y] == 'mine') {
-                    // increase amount of bombs opposite field in specific field
+                    // increase amount of bombs adjoin field in specific field
 
                     // first column
                     if (x - 1 >= 0 && y - 1 >= 0 && gameBoardStructure[x-1][y-1] != 'mine') gameBoardStructure[x-1][y-1] += 1;
                     if (y - 1 >= 0 && gameBoardStructure[x][y-1] != 'mine') gameBoardStructure[x][y-1] += 1;
-                    if (x + 1 < self.boardSize && y - 1 >= 0 && gameBoardStructure[x+1][y-1] != 'mine') gameBoardStructure[x+1][y-1] += 1;
+                    if (x + 1 < this.boardSize && y - 1 >= 0 && gameBoardStructure[x+1][y-1] != 'mine') gameBoardStructure[x+1][y-1] += 1;
 
                     // second column
                     if (x - 1 >= 0 && y >= 0 && gameBoardStructure[x-1][y] != 'mine') gameBoardStructure[x-1][y] += 1;
-                    if (x + 1 < self.boardSize && y >= 0 && gameBoardStructure[x+1][y] != 'mine') gameBoardStructure[x+1][y] += 1;
+                    if (x + 1 < this.boardSize && y >= 0 && gameBoardStructure[x+1][y] != 'mine') gameBoardStructure[x+1][y] += 1;
 
                     // third column
-                    if (x - 1 >= 0 && y + 1 < self.boardSize && gameBoardStructure[x-1][y+1] != 'mine') gameBoardStructure[x-1][y+1] += 1;
-                    if (y + 1 < self.boardSize && gameBoardStructure[x][y+1] != 'mine') gameBoardStructure[x][y+1] += 1;
-                    if (x + 1 < self.boardSize && y + 1 < self.boardSize && gameBoardStructure[x+1][y+1] != 'mine') gameBoardStructure[x+1][y+1] += 1;
+                    if (x - 1 >= 0 && y + 1 < this.boardSize && gameBoardStructure[x-1][y+1] != 'mine') gameBoardStructure[x-1][y+1] += 1;
+                    if (y + 1 < this.boardSize && gameBoardStructure[x][y+1] != 'mine') gameBoardStructure[x][y+1] += 1;
+                    if (x + 1 < this.boardSize && y + 1 < this.boardSize && gameBoardStructure[x+1][y+1] != 'mine') gameBoardStructure[x+1][y+1] += 1;
                 }
             }
         }
 
+        console.log(gameBoardStructure);
         return gameBoardStructure;
     }
 
@@ -139,8 +134,6 @@ export default class Minesweeper {
      * Initialize board
      */
     initializeBoard() {
-        const self = this;
-
         const data = this.getUserData();
         const boardArea = this.getBoardAreaElement();
         const board = this.getBoardElement();
@@ -152,11 +145,12 @@ export default class Minesweeper {
         boardArea.classList.add(boardAreaClassName);
         board.classList.add(boardClassName);
 
-        for (let x = 0; x < self.boardSize; x++) {
-            for (let y = 0; y < self.boardSize; y++) {
+        for (let x = 0; x < this.boardSize; x++) {
+            for (let y = 0; y < this.boardSize; y++) {
                 const field = document.createElement('div');
                 field.setAttribute('data-field-x', x);
                 field.setAttribute('data-field-y', y);
+                field.setAttribute('data-field-status', 'hidden');
                 field.classList.add(fieldClassName);
                 field.classList.add('board-field');
                 board.appendChild(field);
@@ -165,7 +159,109 @@ export default class Minesweeper {
     }
 
     /**
-     * Handle left click on field event
+     * Return field element with specific coordinates
+     */
+    getFieldElement(data_field_x, data_field_y) {
+        return document.querySelector(`[data-field-x="${data_field_x}"][data-field-y="${data_field_y}"]`);
+    }
+
+    /**
+     * Return field with open attribute set to true
+     */
+    getFieldWithOpenStatus(field) {
+        field.setAttribute('data-field-status', 'open');
+        return field;
+    }
+
+    /**
+     * Open fields that has 0 bombs around specific field
+     */
+    specifyFieldsToOpen(row, column) {
+        // [row-1][column-1]  [row-1][column]  [row-1][column+1]
+        // [row][column-1]      empty field    [row][column+1]
+        // [row+1][column-1]  [row+1][column]  [row+1][column+1]
+
+        // check if field is not out of the board
+        if (this.gameBoardStructure[row][column] != '0') return;
+
+        // first column
+        if (row - 1 >= 0 && column - 1 >= 0) {
+            let field = this.getFieldElement(row-1, column-1);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row-1, column-1)
+        }
+        if (column - 1 >= 0) {
+            let field = this.getFieldElement(row, column-1);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row, column-1)
+        }
+        if (row + 1 < this.boardSize && column - 1 >= 0)  {
+            let field = this.getFieldElement(row+1, column-1);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row+1, column-1)
+        }
+
+        // second column
+        if (row - 1 >= 0 && column >= 0) {
+            let field = this.getFieldElement(row-1, column);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row-1, column)
+        }
+        if (row + 1 < this.boardSize && column >= 0) {
+            let field = this.getFieldElement(row+1, column);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row+1, column)
+        }
+
+        // third column
+        if (row - 1 >= 0 && column + 1 < this.boardSize) {
+            let field = this.getFieldElement(row-1, column+1);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row-1, column+1)
+        }
+        if (column + 1 < this.boardSize) {
+            let field = this.getFieldElement(row, column+1);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            this.specifyFieldsToOpen(row, column+1)
+        }
+        if (row + 1 < this.boardSize && column + 1 < this.boardSize) {
+            let field = this.getFieldElement(row+1, column+1);
+            if (field.getAttribute('data-field-status') == 'open') return;
+            this.fieldsToOpen.push(field);
+            field.setAttribute('data-field-status', 'open');
+            this.specifyFieldsToOpen(row+1, column+1)
+        }
+    }
+
+    /**
+     * Open fields to open
+     */
+    openFieldsToOpen() {
+        this.fieldsToOpen.forEach((field) => {
+            let x = field.getAttribute('data-field-x');
+            let y = field.getAttribute('data-field-y');
+            let amountOfBombsAroundField = this.gameBoardStructure[x][y];
+            field.innerHTML = amountOfBombsAroundField;
+            field = this.getFieldWithOpenStatus(field);
+            field.classList.add('board-field-open');
+        });
+    }
+
+    /**
+     * Handle left click on field event - open field
      */
     handleLeftClickOnFieldEvent(field) {
         if (field.innerHTML == '🚩') return;
@@ -176,13 +272,22 @@ export default class Minesweeper {
         if (fieldContent == 'mine') {
             field.innerHTML = '💣';
         } else {
-            field.innerHTML = this.gameBoardStructure[x][y];
+            let amountOfBombsAroundField = this.gameBoardStructure[x][y];
+            field.innerHTML = amountOfBombsAroundField;
+            field = this.getFieldWithOpenStatus(field);
+            // if field doesn't adjoin with any field with bomb - open adjoin fields
+            if (amountOfBombsAroundField == 0) {
+                // clear array with fields to open
+                this.fieldsToOpen = [];
+                this.specifyFieldsToOpen(parseInt(x), parseInt(y));
+                this.openFieldsToOpen()
+            }
         }
         field.classList.add('board-field-open');
     }
 
     /**
-     * Handle right click on field event
+     * Handle right click on field event - mark flag on field
      */
     handleRightClickOnFieldEvent(field) {
         if (field.innerHTML == '🚩') field.innerHTML = '';
