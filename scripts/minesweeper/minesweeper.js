@@ -4,11 +4,7 @@ export default class Minesweeper {
     constructor() {
         this.userData = new UserData();
 
-        this.boardSize = this.getBoardSize();
-        this.bombsAmount = this.getBombsAmount();
-        this.gameBoardStructure = this.getGameBoardStructure();
-
-        this.restartGame();
+        this.initializeGame();
         this.assignEvents();
     }
 
@@ -19,53 +15,10 @@ export default class Minesweeper {
         const self = this;
 
         document.getElementById('new-game-button').addEventListener('click', () => {
-            self.restartGame();
+            self.initializeGame();
         });
         
         
-    }
-
-    /**
-     * Assign click on field event
-     */
-    assignClickEventOnFields() {
-        const boardFields = document.querySelectorAll('.board-field');
-        boardFields.forEach((field) => {
-            field.addEventListener('click', () => {
-                this.handleClickOnFieldEvent(field);
-            });
-        });
-    }
-
-    /**
-     * Initialize board
-     */
-    initializeBoard() {
-        const self = this;
-
-        const data = this.getUserData();
-        const boardArea = this.getBoardAreaElement();
-        const board = this.getBoardElement();
-
-        const boardAreaClassName = data.selectedLevel + '-board-area';
-        const boardClassName = data.selectedLevel + '-board';
-        const fieldClassName = data.selectedLevel + '-field';
-
-        boardArea.classList.add(boardAreaClassName);
-        board.classList.add(boardClassName);
-
-        for (let x = 0; x < self.boardSize; x++) {
-            for (let y = 0; y < self.boardSize; y++) {
-                const field = document.createElement('div');
-                field.setAttribute('data-field-x', x);
-                field.setAttribute('data-field-y', y);
-                field.classList.add(fieldClassName);
-                field.classList.add('board-field');
-                field.classList.add('center-verically');
-                field.innerHTML = this.gameBoardStructure[x][y];
-                board.appendChild(field);
-            }
-        }
     }
 
     /**
@@ -97,30 +50,6 @@ export default class Minesweeper {
     }
 
     /**
-     * Initialize game
-     */
-    restartGame() {
-        this.refreshUserData();
-        this.initializeBoard();
-        this.assignClickEventOnFields();
-    }
-
-    /**
-     * Refresh user data
-     */
-    refreshUserData() {
-        this.boardSize = this.getBoardSize();
-        this.bombsAmount = this.getBombsAmount();
-    }
-
-    /**
-     * Handle click on field event
-     */
-    handleClickOnFieldEvent(field) {
-        console.log(field);
-    }
-
-    /**
      * Return board size
      */
     getBoardSize() {
@@ -147,9 +76,9 @@ export default class Minesweeper {
     }
 
     /**
-     * 
+     * Return game board structure as filled two dimensional array
      */
-    getGameBoardStructure() {
+     getGameBoardStructure() {
         const self = this;
 
         var generatedUniqueBombPositions = 0;
@@ -203,17 +132,97 @@ export default class Minesweeper {
             }
         }
 
-        console.log(gameBoardStructure);
-
         return gameBoardStructure;
     }
 
     /**
-     * Check if coordinates of field opposite to bomb is not behind board
+     * Initialize board
      */
-    drawOnFields() {
-        
+    initializeBoard() {
+        const self = this;
+
+        const data = this.getUserData();
+        const boardArea = this.getBoardAreaElement();
+        const board = this.getBoardElement();
+
+        const boardAreaClassName = data.selectedLevel + '-board-area';
+        const boardClassName = data.selectedLevel + '-board';
+        const fieldClassName = data.selectedLevel + '-field';
+
+        boardArea.classList.add(boardAreaClassName);
+        board.classList.add(boardClassName);
+
+        for (let x = 0; x < self.boardSize; x++) {
+            for (let y = 0; y < self.boardSize; y++) {
+                const field = document.createElement('div');
+                field.setAttribute('data-field-x', x);
+                field.setAttribute('data-field-y', y);
+                field.classList.add(fieldClassName);
+                field.classList.add('board-field');
+                board.appendChild(field);
+            }
+        }
     }
+
+    /**
+     * Handle left click on field event
+     */
+    handleLeftClickOnFieldEvent(field) {
+        if (field.innerHTML == '🚩') return;
+
+        let x = field.getAttribute('data-field-x');
+        let y = field.getAttribute('data-field-y');
+        let fieldContent = this.gameBoardStructure[x][y];
+        if (fieldContent == 'mine') {
+            field.innerHTML = '💣';
+        } else {
+            field.innerHTML = this.gameBoardStructure[x][y];
+        }
+        field.classList.add('board-field-open');
+    }
+
+    /**
+     * Handle right click on field event
+     */
+    handleRightClickOnFieldEvent(field) {
+        if (field.innerHTML == '🚩') field.innerHTML = '';
+        if (field.innerHTML == '') field.innerHTML = '🚩';
+ 
+    }
+
+
+    /**
+     * Assign click on field event
+     */
+    assignClickEventOnFields() {
+        const boardFields = document.querySelectorAll('.board-field');
+        boardFields.forEach((field) => {
+            // left click
+            field.addEventListener('click', (event) => {
+                event.preventDefault();
+                this.handleLeftClickOnFieldEvent(field);
+            });
+            // right click
+            field.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                this.handleRightClickOnFieldEvent(field);
+            });
+        });
+    }
+
+    /**
+     * Initialize game
+     */
+    initializeGame() {
+        this.boardSize = this.getBoardSize();
+        this.bombsAmount = this.getBombsAmount();
+        this.gameBoardStructure = this.getGameBoardStructure();
+        
+        this.initializeBoard();
+        this.assignClickEventOnFields();
+    }
+    
+    
 
 }
 

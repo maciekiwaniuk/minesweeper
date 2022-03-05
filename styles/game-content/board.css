@@ -6,10 +6,16 @@
 .board-field {
     float: left;
     background-color: var(--field-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .board-field:hover {
     cursor: pointer;
     background-color: var(--field-hover-color);
+}
+.board-field-open {
+    background-color: var(--field-open) !important;
 }
 
 /** Beginner difficulty level - 10x10 fields **/
