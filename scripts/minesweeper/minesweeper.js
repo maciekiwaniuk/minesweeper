@@ -174,6 +174,19 @@ export default class Minesweeper {
     }
 
     /**
+     * Function that check if specific field has been opened and checked,
+     * if it wasn't checked before it runs recursive checking untill it
+     * check every nearby field
+     */
+    handleSpecificFieldAndCheckNearbyAlso(row, column) {
+        let field = this.getFieldElement(row, column);
+        if (field.getAttribute('data-field-status') == 'open') return;
+        this.fieldsToOpen.push(field);
+        field.setAttribute('data-field-status', 'open');
+        this.specifyFieldsToOpen(row, column)
+    }
+
+    /**
      * Open fields that has 0 bombs around specific field
      */
     specifyFieldsToOpen(row, column) {
@@ -181,69 +194,21 @@ export default class Minesweeper {
         // [row][column-1]      empty field    [row][column+1]
         // [row+1][column-1]  [row+1][column]  [row+1][column+1]
 
-        // check if field is not out of the board
         if (this.gameBoardStructure[row][column] != '0') return;
 
         // first column
-        if (row - 1 >= 0 && column - 1 >= 0) {
-            let field = this.getFieldElement(row-1, column-1);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row-1, column-1)
-        }
-        if (column - 1 >= 0) {
-            let field = this.getFieldElement(row, column-1);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row, column-1)
-        }
-        if (row + 1 < this.boardSize && column - 1 >= 0)  {
-            let field = this.getFieldElement(row+1, column-1);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row+1, column-1)
-        }
+        if (row - 1 >= 0 && column - 1 >= 0) this.handleSpecificFieldAndCheckNearbyAlso(row-1, column-1)
+        if (column - 1 >= 0) this.handleSpecificFieldAndCheckNearbyAlso(row, column-1)
+        if (row + 1 < this.boardSize && column - 1 >= 0) this.handleSpecificFieldAndCheckNearbyAlso(row+1, column-1)
 
         // second column
-        if (row - 1 >= 0 && column >= 0) {
-            let field = this.getFieldElement(row-1, column);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row-1, column)
-        }
-        if (row + 1 < this.boardSize && column >= 0) {
-            let field = this.getFieldElement(row+1, column);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row+1, column)
-        }
+        if (row - 1 >= 0 && column >= 0) this.handleSpecificFieldAndCheckNearbyAlso(row-1, column);
+        if (row + 1 < this.boardSize && column >= 0) this.handleSpecificFieldAndCheckNearbyAlso(row+1, column);
 
         // third column
-        if (row - 1 >= 0 && column + 1 < this.boardSize) {
-            let field = this.getFieldElement(row-1, column+1);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row-1, column+1)
-        }
-        if (column + 1 < this.boardSize) {
-            let field = this.getFieldElement(row, column+1);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            this.specifyFieldsToOpen(row, column+1)
-        }
-        if (row + 1 < this.boardSize && column + 1 < this.boardSize) {
-            let field = this.getFieldElement(row+1, column+1);
-            if (field.getAttribute('data-field-status') == 'open') return;
-            this.fieldsToOpen.push(field);
-            field.setAttribute('data-field-status', 'open');
-            this.specifyFieldsToOpen(row+1, column+1)
-        }
+        if (row - 1 >= 0 && column + 1 < this.boardSize) this.handleSpecificFieldAndCheckNearbyAlso(row-1, column+1)
+        if (column + 1 < this.boardSize) this.handleSpecificFieldAndCheckNearbyAlso(row, column+1)
+        if (row + 1 < this.boardSize && column + 1 < this.boardSize) this.handleSpecificFieldAndCheckNearbyAlso(row+1, column+1)
     }
 
     /**
@@ -291,7 +256,7 @@ export default class Minesweeper {
      */
     handleRightClickOnFieldEvent(field) {
         if (field.innerHTML == '🚩') field.innerHTML = '';
-        if (field.innerHTML == '') field.innerHTML = '🚩';
+        else if (field.innerHTML == '') field.innerHTML = '🚩';
  
     }
 
