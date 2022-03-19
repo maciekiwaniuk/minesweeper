@@ -4,7 +4,7 @@ export default class Minesweeper {
     constructor() {
         this.userData = new UserData();
 
-        this.initializeGame();
+        this.initializeGameBoard();
         this.assignEvents();
     }
 
@@ -13,7 +13,7 @@ export default class Minesweeper {
      */
     assignEvents() {
         document.getElementById('new-game-button').addEventListener('click', () => {
-            this.initializeGame();
+            this.initializeGameBoard();
         });
     }
 
@@ -74,9 +74,11 @@ export default class Minesweeper {
     /**
      * Return game board structure as filled two dimensional array
      */
-     getGameBoardStructure() {
+     getGameBoardStructure(firstInitialField) {
         var generatedUniqueBombPositions = 0;
         const gameBoardStructure = [];
+        let firstInitialFieldX = firstInitialField.getAttribute('data-field-x');
+        let firstInitialFieldY = firstInitialField.getAttribute('data-field-y');
 
         // generate two dimensional array - empty board structure
         for (let x = 0; x < this.boardSize; x++) {
@@ -91,7 +93,11 @@ export default class Minesweeper {
             let randomBombPositionX = Math.floor(Math.random() * this.boardSize);
             let randomBombPositionY = Math.floor(Math.random() * this.boardSize);
 
-            if (gameBoardStructure[randomBombPositionX][randomBombPositionY] != 'mine') {
+            if (
+                    gameBoardStructure[randomBombPositionX][randomBombPositionY] != 'mine' &&
+                    (firstInitialFieldX != randomBombPositionX || firstInitialFieldY != randomBombPositionY)
+                ) 
+            {
                 gameBoardStructure[randomBombPositionX][randomBombPositionY] = 'mine';
                 generatedUniqueBombPositions += 1;
             }
@@ -107,7 +113,7 @@ export default class Minesweeper {
 
                 // field contains bomb
                 if (gameBoardStructure[x][y] == 'mine') {
-                    // increase amount of bombs adjoin field in specific field
+                    // increase amount of bombs nearby field
 
                     // first column
                     if (x - 1 >= 0 && y - 1 >= 0 && gameBoardStructure[x-1][y-1] != 'mine') gameBoardStructure[x-1][y-1] += 1;
@@ -138,9 +144,9 @@ export default class Minesweeper {
         const boardArea = this.getBoardAreaElement();
         const board = this.getBoardElement();
 
-        const boardAreaClassName = data.selectedLevel + '-board-area';
-        const boardClassName = data.selectedLevel + '-board';
-        const fieldClassName = data.selectedLevel + '-field';
+        const boardAreaClassName = `${data.selectedLevel}-board-area`;
+        const boardClassName = `${data.selectedLevel}-board`;
+        const fieldClassName = `${data.selectedLevel}-field`;
 
         boardArea.classList.add(boardAreaClassName);
         board.classList.add(boardClassName);
@@ -174,9 +180,9 @@ export default class Minesweeper {
     }
 
     /**
-     * Function that check if specific field has been opened and checked,
-     * if it wasn't checked before it runs recursive checking untill it
-     * check every nearby field
+     * Function that checks if specific field has been opened and checked,
+     * if it hasn't been checked before it runs recursive checking untill it
+     * will check every nearby field
      */
     handleSpecificFieldAndCheckNearbyAlso(row, column) {
         let field = this.getFieldElement(row, column);
@@ -231,9 +237,15 @@ export default class Minesweeper {
     handleLeftClickOnFieldEvent(field) {
         if (field.innerHTML == '🚩') return;
 
+        if (this.gameBoardStructureGenerated == false) {
+            this.gameBoardStructure = this.getGameBoardStructure(field);
+            this.gameBoardStructureGenerated = true;
+        }
+
         let x = field.getAttribute('data-field-x');
         let y = field.getAttribute('data-field-y');
         let fieldContent = this.gameBoardStructure[x][y];
+        
         if (fieldContent == 'mine') {
             field.innerHTML = '💣';
         } else {
@@ -283,16 +295,15 @@ export default class Minesweeper {
     /**
      * Initialize game
      */
-    initializeGame() {
+    initializeGameBoard() {
+        this.gameBoardStructureGenerated = false;
+
         this.boardSize = this.getBoardSize();
         this.bombsAmount = this.getBombsAmount();
-        this.gameBoardStructure = this.getGameBoardStructure();
         
         this.initializeBoard();
         this.assignClickEventOnFields();
     }
     
-    
-
 }
 
