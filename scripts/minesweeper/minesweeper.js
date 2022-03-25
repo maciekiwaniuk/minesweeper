@@ -77,8 +77,8 @@ export default class Minesweeper {
      getGameBoardStructure(firstInitialField) {
         var generatedUniqueBombPositions = 0;
         const gameBoardStructure = [];
-        let firstInitialFieldX = firstInitialField.getAttribute('data-field-x');
-        let firstInitialFieldY = firstInitialField.getAttribute('data-field-y');
+        let firstInitialFieldX = parseInt(firstInitialField.getAttribute('data-field-x'));
+        let firstInitialFieldY = parseInt(firstInitialField.getAttribute('data-field-y'));
 
         // generate two dimensional array - empty board structure
         for (let x = 0; x < this.boardSize; x++) {
@@ -93,14 +93,31 @@ export default class Minesweeper {
             let randomBombPositionX = Math.floor(Math.random() * this.boardSize);
             let randomBombPositionY = Math.floor(Math.random() * this.boardSize);
 
-            if (
-                    gameBoardStructure[randomBombPositionX][randomBombPositionY] != 'mine' &&
-                    (firstInitialFieldX != randomBombPositionX || firstInitialFieldY != randomBombPositionY)
-                ) 
-            {
-                gameBoardStructure[randomBombPositionX][randomBombPositionY] = 'mine';
-                generatedUniqueBombPositions += 1;
-            }
+            if (gameBoardStructure[randomBombPositionX][randomBombPositionY] == 'mine') continue;
+
+            // [x-1][y-1]         [x-1][y]          [x-1][y+1]
+            // [x][y-1]      first initial field    [x][y+1]
+            // [x+1][y-1]         [x+1][y]          [x+1][y+1]
+
+            // prevent to generate bombs around initial field click
+
+            // first column
+            if (firstInitialFieldX - 1 == randomBombPositionX && firstInitialFieldY - 1 == randomBombPositionY) continue;
+            if (firstInitialFieldX == randomBombPositionX && firstInitialFieldY - 1 == randomBombPositionY) continue;
+            if (firstInitialFieldX + 1 == randomBombPositionX && firstInitialFieldY - 1 == randomBombPositionY) continue;
+
+            // second column
+            if (firstInitialFieldX - 1 == randomBombPositionX && firstInitialFieldY == randomBombPositionY) continue;
+            if (firstInitialFieldX == randomBombPositionX && firstInitialFieldY == randomBombPositionY) continue;
+            if (firstInitialFieldX + 1 == randomBombPositionX && firstInitialFieldY == randomBombPositionY) continue;
+
+            // third column
+            if (firstInitialFieldX - 1 == randomBombPositionX && firstInitialFieldY + 1 == randomBombPositionY) continue;
+            if (firstInitialFieldX == randomBombPositionX && firstInitialFieldY + 1 == randomBombPositionY) continue;
+            if (firstInitialFieldX + 1 == randomBombPositionX && firstInitialFieldY + 1 == randomBombPositionY) continue;
+
+            gameBoardStructure[randomBombPositionX][randomBombPositionY] = 'mine';
+            generatedUniqueBombPositions += 1;
         }
 
         // fill board structure with numbers which means amount of adjoin fields that contain bomb
