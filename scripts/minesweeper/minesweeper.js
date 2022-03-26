@@ -21,7 +21,7 @@ export default class Minesweeper {
      * Return data from userData class instance
      */
     getUserData() {
-        return this.userData.getUserDataCookieValue();
+        return this.userData.getUserDataLocalStorageValue();
     }
 
     /**

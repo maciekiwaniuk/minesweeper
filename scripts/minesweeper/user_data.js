@@ -1,6 +1,6 @@
 export default class UserData {
     constructor() {
-        this.userDataCookieName = 'minesweeper-user-data';
+        this.userDataLocalStorageName = 'minesweeper-user-data';
 
         this.assignEvents();
         this.setContentOfElementsWithUserData();
@@ -20,9 +20,9 @@ export default class UserData {
     }
 
     /**
-     * Create cookie with default values
+     * Create minesweeper user data local storage with default values
      */
-    createDefaultUserDataCookie() {
+    createDefaultUserDataLocalStorage() {
         const data = {
             scoreRecord: {
                 'beginner': 0,
@@ -32,56 +32,54 @@ export default class UserData {
             },
             selectedLevel: 'beginner'
         };
-        Cookies.set(
-            this.userDataCookieName,
-            JSON.stringify(data),
-            { expires: 365 }
+        localStorage.setItem(
+            this.userDataLocalStorageName,
+            JSON.stringify(data)
         );
     }
 
     /**
-     * Create default minesweeper user data cookie if it doesnt exist
+     * Create default minesweeper user data local storage if it doesnt exist
      */
-    createDefaultUserDataCookieIfNotExists() {
-        const cookie = Cookies.get(this.userDataCookieName);
-        if (cookie == null) {
-            this.createDefaultUserDataCookie();
+     createDefaultUserDataLocalStorageIfNotExists() {
+        const storage = localStorage.getItem(this.userDataLocalStorageName);
+        if (storage == null) {
+            this.createDefaultUserDataLocalStorage();
         }
     }
 
     /**
-     * Return value from minesweeper user data cookie
+     * Return value from minesweeper user data local storage
      */
-    getUserDataCookieValue() {
-        this.createDefaultUserDataCookieIfNotExists();
-        return JSON.parse(Cookies.get(this.userDataCookieName));
+    getUserDataLocalStorageValue() {
+        this.createDefaultUserDataLocalStorageIfNotExists();
+        return JSON.parse(localStorage.getItem(this.userDataLocalStorageName));
     }
 
     /**
-     * Save minesweeper user data cookie
+     * Save minesweeper user data local storage
      */
-    saveUserDataCookie(data) {
-        Cookies.set(
-            this.userDataCookieName, 
-            JSON.stringify(data),
-            { expires: 365 }
+    saveUserDataLocalStorage(data) {
+        localStorage.setItem(
+            this.userDataLocalStorageName, 
+            JSON.stringify(data)
         );
     }
 
     /**
-     * Change select level in user data cookie
+     * Change select level in user data local storage
      */
     changeSelectLevelUserData(level) {
-        const data = this.getUserDataCookieValue();
+        const data = this.getUserDataLocalStorageValue();
         data.selectedLevel = level;
-        this.saveUserDataCookie(data);
+        this.saveUserDataLocalStorage(data);
     }
 
     /**
      * Set content of elements with values from minesweeper user data
      */
     setContentOfElementsWithUserData() {
-        const data = this.getUserDataCookieValue();
+        const data = this.getUserDataLocalStorageValue();
 
         // set option in level of difficulty select
         const selectLevel = document.getElementById('select-level');
