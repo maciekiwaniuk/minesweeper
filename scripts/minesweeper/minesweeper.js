@@ -1,10 +1,13 @@
 import UserData from "../minesweeper/user_data.js";
+import Translations from "../translations.js";
 
 export default class Minesweeper {
     constructor() {
         this.userData = new UserData();
+        this.translations = new Translations();
 
         this.initializeGameBoard();
+        this.setContentOfLabels();
         this.assignEvents();
     }
 
@@ -15,6 +18,39 @@ export default class Minesweeper {
         document.getElementById('new-game-button').addEventListener('click', () => {
             this.initializeGameBoard();
         });
+    }
+
+    /**
+     * Set content of labels above game board
+     */
+    setContentOfLabels() {
+        let data = this.getUserData();
+
+        this.translations.getTranslationPromiseDict().then((promiseDict) => {
+            let levelOfDifficultyValueDiv = document.getElementById('level-of-difficulty-value');
+            let personalRecordValueDiv = document.getElementById('personal-record-value');
+            switch (data.selectedLevel) {
+                case 'beginner': {
+                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.beginner;
+                    personalRecordValueDiv.innerHTML = data.scoreRecord.beginner;
+                } break;
+                case 'intermediate': {
+                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.intermediate;
+                    personalRecordValueDiv.innerHTML = data.scoreRecord.intermediate;
+                } break;
+                case 'expert': {
+                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.expert;
+                    personalRecordValueDiv.innerHTML = data.scoreRecord.expert;
+                } break;
+                case 'real-saper': {
+                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.realSapper;
+                    personalRecordValueDiv.innerHTML = data.scoreRecord.realSapper;
+                } break;
+            }
+        });
+
+        document.getElementById('amount-of-mines-value').innerHTML = 0;
+        document.getElementById('game-time-value').innerHTML = 0;
     }
 
     /**
@@ -242,10 +278,36 @@ export default class Minesweeper {
             let x = field.getAttribute('data-field-x');
             let y = field.getAttribute('data-field-y');
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
-            field.innerHTML = amountOfBombsAroundField;
+            if (amountOfBombsAroundField != 0) {
+                field.innerHTML = amountOfBombsAroundField;
+            }
             field = this.getFieldWithOpenStatus(field);
             field.classList.add('board-field-open');
         });
+    }
+
+    /**
+     * Initialize timer after first initial click
+     */
+    initializeGameTimer() {
+        let gameTimeValueDiv = document.getElementById('game-time-value');
+        let time = 0;
+
+        this.clearGameTimer();
+
+        this.timer = setInterval(() => {
+            time += 1;
+            gameTimeValueDiv.innerHTML = time;
+        }, 1000);
+    }
+
+    /**
+     * Clear game timer if exists
+     */
+    clearGameTimer() {
+        if (this.timer != null) {
+            clearInterval(this.timer);
+        }
     }
 
     /**
@@ -254,9 +316,12 @@ export default class Minesweeper {
     handleLeftClickOnFieldEvent(field) {
         if (field.innerHTML == '🚩') return;
 
+        // first initial click
         if (this.gameBoardStructureGenerated == false) {
+            // generate game board structure
             this.gameBoardStructure = this.getGameBoardStructure(field);
             this.gameBoardStructureGenerated = true;
+            this.initializeGameTimer();
         }
 
         let x = field.getAttribute('data-field-x');
@@ -267,7 +332,9 @@ export default class Minesweeper {
             field.innerHTML = '💣';
         } else {
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
-            field.innerHTML = amountOfBombsAroundField;
+            if (amountOfBombsAroundField != 0) {
+                field.innerHTML = amountOfBombsAroundField;
+            }
             field = this.getFieldWithOpenStatus(field);
             // if field doesn't adjoin with any field with bomb - open adjoin fields
             if (amountOfBombsAroundField == 0) {
@@ -284,11 +351,13 @@ export default class Minesweeper {
      * Handle right click on field event - mark flag on field
      */
     handleRightClickOnFieldEvent(field) {
-        if (field.innerHTML == '🚩') field.innerHTML = '';
-        else if (field.innerHTML == '') field.innerHTML = '🚩';
- 
-    }
+        if (field.innerHTML == '🚩') {
+            field.innerHTML = '';
 
+        } else if (field.innerHTML == '' && field.getAttribute('data-field-status') != 'open') {
+            field.innerHTML = '🚩';
+        }
+    }
 
     /**
      * Assign click on field event
@@ -318,6 +387,8 @@ export default class Minesweeper {
         this.boardSize = this.getBoardSize();
         this.bombsAmount = this.getBombsAmount();
         
+        this.clearGameTimer();
+        this.setContentOfLabels();
         this.initializeBoard();
         this.assignClickEventOnFields();
     }

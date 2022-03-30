@@ -1,8 +1,8 @@
 export default class Translations {
     constructor() {
-        this.languageCookieName = 'selected-language';
+        this.languageLocalStorageName = 'selected-language';
         this.defaultLanguage = 'en';
-        this.selectedLanguage = this.getLanguageCookieValue();
+        this.selectedLanguage = this.getLanguageLocalStorageValue();
 
         this.setTextContentOfAllElements();
         this.assignEvents();
@@ -25,39 +25,38 @@ export default class Translations {
     }
 
     /**
-     * Create cookie with default english language
+     * Create local storage with default english language
      */
-    createDefaultLanguageCookie() {
-        Cookies.set(
-            this.languageCookieName,
-            this.defaultLanguage,
-            { expires: 365 }
+    createDefaultLanguageLocalStorage() {
+        localStorage.setItem(
+            this.languageLocalStorageName,
+            this.defaultLanguage
         );
     }
 
     /**
-     * Create default language cookie if it doesnt exist
+     * Create default language local storage if it doesnt exist
      */
-    createDefaultLanguageCookieIfNotExists() {
-        const cookie = Cookies.get(this.languageCookieName);
-        if (cookie == null) {
-            this.createDefaultLanguageCookie();
+    createDefaultLanguageLocalStorageIfNotExists() {
+        const storage = localStorage.getItem(this.languageLocalStorageName);
+        if (storage == null) {
+            this.createDefaultLanguageLocalStorage();
         }
     }
 
     /**
-     * Return value from language cookie
+     * Return value from language local storage
      */
-    getLanguageCookieValue() {
-        this.createDefaultLanguageCookieIfNotExists();
-        return Cookies.get(this.languageCookieName);
+    getLanguageLocalStorageValue() {
+        this.createDefaultLanguageLocalStorageIfNotExists();
+        return localStorage.getItem(this.languageLocalStorageName);
     }
 
     /**
      * Change selected language
      */
     changeSelectedLanguage(language) {
-        Cookies.set(this.languageCookieName, language);
+        localStorage.setItem(this.languageLocalStorageName, language);
         this.setTextContentOfAllElements();
     }
 
@@ -75,7 +74,7 @@ export default class Translations {
      */
     getTranslationPromiseDict() {
         return this.getTransPromiseDictOfSpecificLanguage(
-            this.getLanguageCookieValue()
+            this.getLanguageLocalStorageValue()
         );
     }
     
@@ -86,26 +85,26 @@ export default class Translations {
         this.getTranslationPromiseDict().then((transDict) => {
             // title
             document.title = transDict.title;
-            document.documentElement.setAttribute('lang', this.getLanguageCookieValue());
+            document.documentElement.setAttribute('lang', this.getLanguageLocalStorageValue());
 
             // header
             document.getElementById('header-text').textContent = transDict.header;
 
             // game info bar
-            document.getElementById('level-of-difficulty-label').textContent = transDict.infoBar.levelOfDifficulty + ':';
-            document.getElementById('amount-of-mines-label').textContent = transDict.infoBar.amountOfMines + ':';
-            document.getElementById('personal-record-label').textContent = transDict.infoBar.personalRecord + ':';
-            document.getElementById('game-time-label').textContent = transDict.infoBar.gameTime + ':';
+            document.getElementById('level-of-difficulty-label').textContent = `${transDict.infoBar.levelOfDifficulty}:\xa0`;
+            document.getElementById('amount-of-mines-label').textContent = `${transDict.infoBar.amountOfMines}:\xa0`;
+            document.getElementById('personal-record-label').textContent = `${transDict.infoBar.personalRecord}:\xa0`;
+            document.getElementById('game-time-label').textContent = `${transDict.infoBar.gameTime}:\xa0`;
 
             // level bar
-            document.getElementById('new-game-button').textContent = transDict.levelBar.newGame;
-            document.getElementById('beginner-level').textContent = transDict.difficultyLevels.beginner;
-            document.getElementById('intermediate-level').textContent = transDict.difficultyLevels.intermediate;
-            document.getElementById('expert-level').textContent = transDict.difficultyLevels.expert;
-            document.getElementById('real-sapper-level').textContent = transDict.difficultyLevels.realSapper;
+            document.getElementById('new-game-button').textContent = `${transDict.levelBar.newGame}`;
+            document.getElementById('beginner-level').textContent = `${transDict.difficultyLevels.beginner}`;
+            document.getElementById('intermediate-level').textContent = `${transDict.difficultyLevels.intermediate}`;
+            document.getElementById('expert-level').textContent = `${transDict.difficultyLevels.expert}`;
+            document.getElementById('real-sapper-level').textContent = `${transDict.difficultyLevels.realSapper}`;
 
             // footer
-            document.getElementById('footer-text').textContent = transDict.footer.author + ' - ' + transDict.footer.text;
+            document.getElementById('footer-text').textContent = `${transDict.footer.author} - ${transDict.footer.text}`;
         });
     }
 
