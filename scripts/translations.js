@@ -1,5 +1,8 @@
+import UserData from "../scripts/minesweeper/user_data.js";
+
 export default class Translations {
     constructor() {
+        this.userData = new UserData();
         this.languageLocalStorageName = 'selected-language';
         this.defaultLanguage = 'en';
         this.selectedLanguage = this.getLanguageLocalStorageValue();
@@ -77,6 +80,30 @@ export default class Translations {
             this.getLanguageLocalStorageValue()
         );
     }
+
+    /**
+     * Set text content of personal record label
+     */
+    setTextContentOfPersonalRecordLabel() {
+        let data = this.userData.getUserDataLocalStorageValue();
+        this.getTranslationPromiseDict().then((transDict) => {
+            var personalRecordLabel = document.getElementById('personal-record-label');
+            switch (data.selectedLevel) {
+                case 'beginner': {
+                    personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.beginner}:\xa0`;
+                } break;
+                case 'intermediate': {
+                    personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.intermediate}:\xa0`;
+                } break;
+                case 'expert': {
+                    personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.expert}:\xa0`;
+                } break;
+                case 'real-saper': {
+                    personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.realSapper}:\xa0`;
+                } break;
+            }
+        });
+    }
     
     /**
      * Set text content with selected language of all elements
@@ -92,8 +119,7 @@ export default class Translations {
 
             // game info bar
             document.getElementById('level-of-difficulty-label').textContent = `${transDict.infoBar.levelOfDifficulty}:\xa0`;
-            document.getElementById('amount-of-mines-label').textContent = `${transDict.infoBar.amountOfMines}:\xa0`;
-            document.getElementById('personal-record-label').textContent = `${transDict.infoBar.personalRecord}:\xa0`;
+            document.getElementById('mines-left-label').textContent = `${transDict.infoBar.minesLeft}:\xa0`;
             document.getElementById('game-time-label').textContent = `${transDict.infoBar.gameTime}:\xa0`;
 
             // level bar
@@ -106,6 +132,8 @@ export default class Translations {
             // footer
             document.getElementById('footer-text').textContent = `${transDict.footer.author} - ${transDict.footer.text}`;
         });
+
+        this.setTextContentOfPersonalRecordLabel();
     }
 
 }

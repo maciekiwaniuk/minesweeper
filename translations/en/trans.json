@@ -9,9 +9,14 @@
     },
     "infoBar": {
         "levelOfDifficulty": "Level of difficulty",
-        "amountOfMines": "Amount of mines",
-        "personalRecord": "Record",
-        "gameTime": "Time"
+        "minesLeft": "Mines left",
+        "gameTime": "Time",
+        "personalRecord": {
+            "beginner": "Record on beginner",
+            "intermediate": "Record on intermediate",
+            "expert": "Record on expert",
+            "realSapper": "Record on real sapper"
+        }
     },
     "levelBar": {
         "newGame": "New game"

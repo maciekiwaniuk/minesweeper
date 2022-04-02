@@ -49,7 +49,8 @@ export default class Minesweeper {
             }
         });
 
-        document.getElementById('amount-of-mines-value').innerHTML = 0;
+        this.updateMinesLeftLabel();
+
         document.getElementById('game-time-value').innerHTML = 0;
     }
 
@@ -283,6 +284,8 @@ export default class Minesweeper {
             }
             field = this.getFieldWithOpenStatus(field);
             field.classList.add('board-field-open');
+
+            this.openedFields += 1;
         });
     }
 
@@ -311,6 +314,45 @@ export default class Minesweeper {
     }
 
     /**
+     * Handle lose
+     */
+    handleLose() {
+        console.log('lose');
+    }
+
+    /**
+     * Handle win
+     */
+    handleWin() {
+        console.log('win');
+    }
+
+    /**
+     * Check if user won or lost
+     */
+    checkIfWon() {
+        let boardSize = this.getBoardSize();
+        let bombsAmount = this.getBombsAmount();
+        let fieldsAmount = boardSize * boardSize;
+
+        if (fieldsAmount - bombsAmount - this.openedFields == 0) {
+            this.handleWin();
+        }
+    }
+
+    /**
+     * Initialize new game
+     */
+    initializeGame(initialField) {
+        this.openedFields = 1;
+
+        this.gameBoardStructure = this.getGameBoardStructure(initialField);
+        this.gameBoardStructureGenerated = true;
+        
+        this.initializeGameTimer();
+    }
+
+    /**
      * Handle left click on field event - open field
      */
     handleLeftClickOnFieldEvent(field) {
@@ -318,10 +360,8 @@ export default class Minesweeper {
 
         // first initial click
         if (this.gameBoardStructureGenerated == false) {
-            // generate game board structure
-            this.gameBoardStructure = this.getGameBoardStructure(field);
-            this.gameBoardStructureGenerated = true;
-            this.initializeGameTimer();
+            // generate and randomize game
+            this.initializeGame(field);
         }
 
         let x = field.getAttribute('data-field-x');
@@ -330,6 +370,7 @@ export default class Minesweeper {
         
         if (fieldContent == 'mine') {
             field.innerHTML = '💣';
+            this.handleLose();
         } else {
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
             if (amountOfBombsAroundField != 0) {
@@ -343,7 +384,12 @@ export default class Minesweeper {
                 this.specifyFieldsToOpen(parseInt(x), parseInt(y));
                 this.openFieldsToOpen()
             }
+
+            // check if user won
+            this.checkIfWon();
         }
+
+        this.openedFields += 1;
         field.classList.add('board-field-open');
     }
 
@@ -353,10 +399,14 @@ export default class Minesweeper {
     handleRightClickOnFieldEvent(field) {
         if (field.innerHTML == '🚩') {
             field.innerHTML = '';
+            this.bombsLeft += 1;
 
         } else if (field.innerHTML == '' && field.getAttribute('data-field-status') != 'open') {
             field.innerHTML = '🚩';
+            this.bombsLeft -= 1;
         }
+
+        this.updateMinesLeftLabel()
     }
 
     /**
@@ -379,16 +429,26 @@ export default class Minesweeper {
     }
 
     /**
+     * Update mines left label
+     */
+    updateMinesLeftLabel() {
+        let minesLeftDiv = document.getElementById('mines-left-value');
+        minesLeftDiv.innerHTML = this.bombsLeft;
+    }
+
+    /**
      * Initialize game
      */
     initializeGameBoard() {
         this.gameBoardStructureGenerated = false;
+        this.bombsLeft = this.getBombsAmount();
 
         this.boardSize = this.getBoardSize();
         this.bombsAmount = this.getBombsAmount();
         
         this.clearGameTimer();
         this.setContentOfLabels();
+        this.translations.setTextContentOfPersonalRecordLabel();
         this.initializeBoard();
         this.assignClickEventOnFields();
     }

@@ -9,9 +9,14 @@
     },
     "infoBar": {
         "levelOfDifficulty": "Poziom trudności",
-        "amountOfMines": "Ilość min",
-        "personalRecord": "Rekord",
-        "gameTime": "Czas"
+        "minesLeft": "Ilość min",
+        "gameTime": "Czas",
+        "personalRecord": {
+            "beginner": "Rekord na łatwym",
+            "intermediate": "Rekord na wprawionym",
+            "expert": "Rekord na ekspercie",
+            "realSapper": "Rekord na prawdziwym saperze"
+        }
     },
     "levelBar": {
         "newGame": "Nowa gra"
