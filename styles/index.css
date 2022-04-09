@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
 :root {
-    --field-color: rgb(184, 179, 181);
-    --field-hover-color: rgb(106, 98, 101);
-    --field-open: rgb(224, 224, 224);
+    --field-color: 	rgb(121, 106, 199);
+    --field-hover-color: rgb(109, 86, 225);
+    --field-open: rgb(160, 143, 245);
 }
 
 * {

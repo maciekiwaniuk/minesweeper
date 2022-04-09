@@ -1,11 +1,15 @@
-.board-area-general {
+.board-area-div {
     float: left;
     display: flex;
     justify-content: center;
 }
+.board-content {
+    display: grid;
+}
+
 .board-field {
-    float: left;
     background-color: var(--field-color);
+    border: solid black 0.1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,82 +22,128 @@
     background-color: var(--field-open) !important;
 }
 
-/** Beginner difficulty level - 10x10 fields **/
+/* Beginner difficulty level - 10x10 fields */
 .beginner-board-area {
     width: 100%;
     height: 104vw;
     padding-bottom: 4vw;
 }
 .beginner-board {
-    width: 100vw;
-    height: 100vw;
-}
-.beginner-field {
-    width: 10vw;
-    height: 10vw;
-    border: solid black 0.1rem;
+    width: 95vw;
+    height: 95vw;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
 }
 @media (min-width: 30rem) {
     .beginner-board-area {
-        height: 31rem;
-        padding-bottom: 1rem;
-        background-color: yellow;
+        height: 34rem;
     }
     .beginner-board {
         width: 30rem;
         height: 30rem;
-    }
-    .beginner-field {
-        width: 3rem;
-        height: 3rem;
-        border: solid black 0.1rem;
     }
 }
 @media (min-width: 50rem) {
-    .beginner-board-area {
-        height: 31rem;
-        padding-bottom: 1rem;
-        background-color: greenyellow
+    .beginner-board-board-area {
+        height: 36rem;
     }
-    .beginner-board {
-        width: 30rem;
-        height: 30rem;
-    }
-    .beginner-field {
-        width: 3rem;
-        height: 3rem;
-        border: solid black 0.1rem;
+    .beginner-board-board {
+        width: 35rem;
+        height: 35rem;
     }
 }
 
-/** Real-saper difficulty level - 20x20 fields **/
-.real-saper-board-area {
+/* Intermediate difficulty level - 10x10 fields */
+.intermediate-board-area {
     width: 100%;
     height: 104vw;
     padding-bottom: 4vw;
 }
-.real-saper-board {
-    width: 100vw;
-    height: 100vw;
-}
-.real-saper-field {
-    width: 5vw;
-    height: 5vw;
-    border: solid black 0.1rem;
+.intermediate-board {
+    width: 95vw;
+    height: 95vw;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
 }
 @media (min-width: 30rem) {
-    .real-saper-board-area {
-        height: 32rem;
-        padding-bottom: 2vw;
-        background-color: orangered;
+    .intermediate-board-area {
+        height: 36rem;
     }
-    .real-saper-board {
+    .intermediate-board {
+        width: 32rem;
+        height: 32rem;
+    }
+}
+@media (min-width: 50rem) {
+    .intermediate-board-board-area {
+        height: 39rem;
+    }
+    .intermediate-board-board {
+        width: 38rem;
+        height: 38rem;
+    }
+}
+
+/* Expert difficulty level - 20x20 fields */
+.expert-board-area {
+    width: 100%;
+    height: 104vw;
+    padding-bottom: 4vw;
+    font-size: 1rem;
+}
+.expert-board {
+    width: 99vw;
+    height: 99vw;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+}
+@media (min-width: 30rem) {
+    .expert-board-area {
+        height: 31rem;
+    }
+    .expert-board {
+        width: 27rem;
+        height: 27rem;
+    }
+}
+@media (min-width: 50rem) {
+    .expert-board-area {
+        height: 33rem;
+    }
+    .expert-board {
+        width: 32rem;
+        height: 32rem;
+    }
+}
+
+/* Real sapper difficulty level - 20x20 fields */
+.real-sapper-board-area {
+    width: 100%;
+    height: 104vw;
+    padding-bottom: 4vw;
+    font-size: 0.8rem;
+}
+.real-sapper-board {
+    width: 99vw;
+    height: 99vw;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20, 1fr);
+}
+@media (min-width: 30rem) {
+    .real-sapper-board-area {
+        height: 34rem;
+    }
+    .real-sapper-board {
         width: 30rem;
         height: 30rem;
     }
-    .real-saper-field {
-        width: 1.5rem;
-        height: 1.5rem;
-        border: solid black 0.1rem;
+}
+@media (min-width: 50rem) {
+    .real-sapper-board-area {
+        height: 36rem;
+    }
+    .real-sapper-board {
+        width: 35rem;
+        height: 35rem;
     }
 }

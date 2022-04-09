@@ -42,7 +42,7 @@ export default class Minesweeper {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.expert;
                     personalRecordValueDiv.innerHTML = data.scoreRecord.expert;
                 } break;
-                case 'real-saper': {
+                case 'real-sapper': {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.realSapper;
                     personalRecordValueDiv.innerHTML = data.scoreRecord.realSapper;
                 } break;
@@ -69,7 +69,7 @@ export default class Minesweeper {
         boardArea.classList.remove('beginner-board-area')
         boardArea.classList.remove('intermediate-board-area')
         boardArea.classList.remove('expert-board-area')
-        boardArea.classList.remove('real-saper-board-area')
+        boardArea.classList.remove('real-sapper-board-area')
         return boardArea;
     }
 
@@ -78,6 +78,10 @@ export default class Minesweeper {
      */
     getBoardElement() {
         const board = document.getElementById('board');
+        board.classList.remove('beginner-board');
+        board.classList.remove('intermediate-board');
+        board.classList.remove('expert-board');
+        board.classList.remove('real-sapper-board');
         board.innerHTML = '';
         return board;
     }
@@ -91,7 +95,7 @@ export default class Minesweeper {
             case 'beginner':     return 10;
             case 'intermediate': return 12;
             case 'expert':       return 16;
-            case 'real-saper':   return 20;
+            case 'real-sapper':   return 20;
         }
     }
 
@@ -104,7 +108,7 @@ export default class Minesweeper {
             case 'beginner':     return 10;
             case 'intermediate': return 20;
             case 'expert':       return 30;
-            case 'real-saper':   return 40;
+            case 'real-sapper':   return 40;
         }
     }
 

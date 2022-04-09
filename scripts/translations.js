@@ -98,7 +98,7 @@ export default class Translations {
                 case 'expert': {
                     personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.expert}:\xa0`;
                 } break;
-                case 'real-saper': {
+                case 'real-sapper': {
                     personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.realSapper}:\xa0`;
                 } break;
             }
