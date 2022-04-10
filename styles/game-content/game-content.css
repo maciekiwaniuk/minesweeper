@@ -1,7 +1,6 @@
 .game-content {
     float: left;
     min-width: 100%;
-    min-height: 85vh;
-    background-color: rgb(130, 154, 91);
+    min-height: 80vh;
     text-align: center;
 }

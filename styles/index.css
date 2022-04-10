@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
 :root {
+    --background-color: rgb(0, 0, 0);
+    --lighter-background-color: rgb(31, 32, 33);
+    --content-background-color: rgb(107, 125, 241);
     --field-color: 	rgb(121, 106, 199);
     --field-hover-color: rgb(109, 86, 225);
-    --field-open: rgb(160, 143, 245);
+    --field-open-color: rgb(160, 143, 245);
 }
 
 * {
@@ -14,7 +17,7 @@
 }
 
 body {
-    background-color: grey;
+    background-color: rgb(0, 0, 0);
 }
 
 /** set default font-size to 62,5% so 1rem = 10px **/

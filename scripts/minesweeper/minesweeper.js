@@ -106,9 +106,9 @@ export default class Minesweeper {
         const data = this.getUserData();
         switch (data.selectedLevel) {
             case 'beginner':     return 10;
-            case 'intermediate': return 20;
-            case 'expert':       return 30;
-            case 'real-sapper':   return 40;
+            case 'intermediate': return 25;
+            case 'expert':       return 35;
+            case 'real-sapper':   return 50;
         }
     }
 

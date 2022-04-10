@@ -1,20 +1,30 @@
 .info-bar {
     float: left;
     min-width: 100%;
-    min-height: 12vh;
-    background-color: rgb(242, 163, 163);
+    min-height: 13vh;
 }
 
  .info-bar .content {
     float: left;
     min-width: 100%;
-    min-height: 6vh;
-    background-color: aqua;
+    min-height: 5vh;
 }
 
 .info-bar .element {
     float: left;
     min-width: 50%;
-    min-height: 6vh;
-    background-color: aliceblue;
+    min-height: 5vh;
+    font-size: 1rem;
+}
+@media (min-width: 40rem) {
+    .info-bar .element {
+        font-size: 1.3rem;
+    }
+}
+
+#level-of-difficulty-value, 
+#mines-left-value,
+#personal-record-value,
+#game-time-value {
+    font-weight: 600;
 }

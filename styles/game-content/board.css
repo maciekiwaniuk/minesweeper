@@ -5,6 +5,7 @@
 }
 .board-content {
     display: grid;
+    border: solid white 2px;
 }
 
 .board-field {
@@ -19,14 +20,13 @@
     background-color: var(--field-hover-color);
 }
 .board-field-open {
-    background-color: var(--field-open) !important;
+    background-color: var(--field-open-color) !important;
 }
 
 /* Beginner difficulty level - 10x10 fields */
 .beginner-board-area {
     width: 100%;
-    height: 104vw;
-    padding-bottom: 4vw;
+    height: 100vw;
 }
 .beginner-board {
     width: 95vw;
@@ -36,7 +36,7 @@
 }
 @media (min-width: 30rem) {
     .beginner-board-area {
-        height: 34rem;
+        height: 31rem;
     }
     .beginner-board {
         width: 30rem;
@@ -53,11 +53,10 @@
     }
 }
 
-/* Intermediate difficulty level - 10x10 fields */
+/* Intermediate difficulty level - 12x12 fields */
 .intermediate-board-area {
     width: 100%;
     height: 104vw;
-    padding-bottom: 4vw;
 }
 .intermediate-board {
     width: 95vw;
@@ -67,7 +66,7 @@
 }
 @media (min-width: 30rem) {
     .intermediate-board-area {
-        height: 36rem;
+        height: 33rem;
     }
     .intermediate-board {
         width: 32rem;
@@ -84,12 +83,11 @@
     }
 }
 
-/* Expert difficulty level - 20x20 fields */
+/* Expert difficulty level - 16x16 fields */
 .expert-board-area {
     width: 100%;
     height: 104vw;
-    padding-bottom: 4vw;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 .expert-board {
     width: 99vw;
@@ -99,7 +97,8 @@
 }
 @media (min-width: 30rem) {
     .expert-board-area {
-        height: 31rem;
+        height: 28rem;
+        font-size: 0.8rem;
     }
     .expert-board {
         width: 27rem;
@@ -109,6 +108,7 @@
 @media (min-width: 50rem) {
     .expert-board-area {
         height: 33rem;
+        font-size: 1rem;
     }
     .expert-board {
         width: 32rem;
@@ -119,9 +119,8 @@
 /* Real sapper difficulty level - 20x20 fields */
 .real-sapper-board-area {
     width: 100%;
-    height: 104vw;
-    padding-bottom: 4vw;
-    font-size: 0.8rem;
+    height: 101vw;
+    font-size: 0.6rem;
 }
 .real-sapper-board {
     width: 99vw;
@@ -131,7 +130,8 @@
 }
 @media (min-width: 30rem) {
     .real-sapper-board-area {
-        height: 34rem;
+        height: 31rem;
+        font-size: 0.8rem;
     }
     .real-sapper-board {
         width: 30rem;
@@ -141,6 +141,7 @@
 @media (min-width: 50rem) {
     .real-sapper-board-area {
         height: 36rem;
+        font-size: 1rem;
     }
     .real-sapper-board {
         width: 35rem;

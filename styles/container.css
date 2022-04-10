@@ -1,6 +1,9 @@
 .container {
     min-height: 100vh;
     margin: auto;
+    background-color: var(--content-background-color);
+    border-left: solid white 3px;
+    border-right: solid white 3px;
 }
 
 @media (min-width: 400px) {

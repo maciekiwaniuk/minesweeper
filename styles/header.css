@@ -1,18 +1,17 @@
 .header {
     position: relative;
     width: 100%;
-    min-height: 10vh;
-    background-color: orange;
+    min-height: 15vh;
     text-align: center;
 }
 
 #header-text {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 700;
 }
 @media (min-width: 1000px) {
     #header-text {
-        font-size: 5rem;
+        font-size: 4.5rem;
         font-weight: 700;
     }
 }
