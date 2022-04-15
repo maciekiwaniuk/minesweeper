@@ -2,15 +2,61 @@
     float: left;
     display: flex;
     justify-content: center;
+    color: var(--field-text-color);
 }
+
 .board-content {
     display: grid;
+    position: relative;
+}
+
+/* lose/win div on board - inside board-content*/
+.board-game-status-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(17, 16, 16);
+    opacity: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-game-status-content {
+    min-width: 50%;
+}
+
+.restart-game-button {
+    margin-top: 1vh;
+    min-width: 40%;
+    height: 4.5vh;
+    font-size: 1rem;
+    border-radius: 1.2rem;
     border: solid white 2px;
+    background-color: var(--background-color);
+    color: white;
+}
+.restart-game-button:hover {
+    background-color: var(--lighter-background-color);
+    cursor: pointer;
+}
+
+.game-lost-text {
+    font-size: 1rem;
+}
+@media (min-width: 40rem) {
+    .game-lost-text {
+        font-size: 1.3rem;
+    }
 }
 
 .board-field {
     background-color: var(--field-color);
-    border: solid black 0.1rem;
+    border-color: var(--field-border-color);
+    border-style: solid;
+    border-width: 0.1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,20 +112,20 @@
 }
 @media (min-width: 30rem) {
     .intermediate-board-area {
-        height: 33rem;
+        height: 31rem;
     }
     .intermediate-board {
-        width: 32rem;
-        height: 32rem;
+        width: 30rem;
+        height: 30rem;
     }
 }
 @media (min-width: 50rem) {
     .intermediate-board-board-area {
-        height: 39rem;
+        height: 36rem;
     }
     .intermediate-board-board {
-        width: 38rem;
-        height: 38rem;
+        width: 35rem;
+        height: 35rem;
     }
 }
 
@@ -90,29 +136,29 @@
     font-size: 0.8rem;
 }
 .expert-board {
-    width: 99vw;
-    height: 99vw;
+    width: 95vw;
+    height: 95vw;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(16, 1fr);
 }
 @media (min-width: 30rem) {
     .expert-board-area {
-        height: 28rem;
+        height: 31rem;
         font-size: 0.8rem;
     }
     .expert-board {
-        width: 27rem;
-        height: 27rem;
+        width: 30rem;
+        height: 30rem;
     }
 }
 @media (min-width: 50rem) {
     .expert-board-area {
-        height: 33rem;
+        height: 36rem;
         font-size: 1rem;
     }
     .expert-board {
-        width: 32rem;
-        height: 32rem;
+        width: 35rem;
+        height: 35rem;
     }
 }
 

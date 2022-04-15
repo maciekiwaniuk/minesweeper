@@ -3,6 +3,7 @@
     width: 100%;
     min-height: 15vh;
     text-align: center;
+    color: var(--header-text-color);
 }
 
 #header-text {

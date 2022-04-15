@@ -1,12 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
 :root {
-    --background-color: rgb(0, 0, 0);
-    --lighter-background-color: rgb(31, 32, 33);
-    --content-background-color: rgb(107, 125, 241);
-    --field-color: 	rgb(121, 106, 199);
-    --field-hover-color: rgb(109, 86, 225);
-    --field-open-color: rgb(160, 143, 245);
+    --background-color: #170A1A;
+    --lighter-background-color: #190F24;
+
+    --content-background-color: #2a2734;
+    --content-border-color: white;
+
+    --header-text-color: rgb(145, 139, 139);
+
+    --info-bar-text-color: rgb(145, 139, 139);
+
+    --level-bar-text-color: rgb(145, 139, 139);
+
+    --field-color: rgb(145, 139, 139);
+    --field-hover-color: rgb(200, 200, 200);
+    --field-open-color: rgb(89, 87, 85);
+    --field-border-color: white;
+    --field-text-color:white;
+
+    --footer-text-color: rgb(145, 139, 139);
 }
 
 * {
@@ -17,7 +30,7 @@
 }
 
 body {
-    background-color: rgb(0, 0, 0);
+    background-color: var(--background-color);
 }
 
 /** set default font-size to 62,5% so 1rem = 10px **/

@@ -2,8 +2,7 @@
     min-height: 100vh;
     margin: auto;
     background-color: var(--content-background-color);
-    border-left: solid white 3px;
-    border-right: solid white 3px;
+    overflow: auto;
 }
 
 @media (min-width: 400px) {
@@ -15,8 +14,11 @@
 @media (min-width: 1000px) {
     .container {
         max-width: 90%;
+        border-left: solid var(--content-border-color) 3px;
+        border-right: solid var(--content-border-color) 3px;
     }
 }
+
 @media (min-width: 1500px) {
     .container {
         max-width: 80%;

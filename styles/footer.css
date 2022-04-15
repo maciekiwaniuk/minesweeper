@@ -3,4 +3,5 @@
     width: 100%;
     min-height: 5vh;
     text-align: center;
+    color: var(--footer-text-color);
 }

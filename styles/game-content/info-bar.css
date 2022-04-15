@@ -2,6 +2,7 @@
     float: left;
     min-width: 100%;
     min-height: 13vh;
+    color: var(--info-bar-text-color);
 }
 
  .info-bar .content {

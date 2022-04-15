@@ -18,6 +18,17 @@ export default class Minesweeper {
         document.getElementById('new-game-button').addEventListener('click', () => {
             this.initializeGameBoard();
         });
+
+        document.getElementById('select-level').addEventListener('change', () => {
+            this.initializeGameBoard();
+        });
+
+        const flags = document.getElementsByClassName('flag-icon');
+        for (const flag of flags) {
+            flag.addEventListener('click', () => {
+                this.setContentOfLabels();
+            });
+        }
     }
 
     /**
@@ -32,26 +43,36 @@ export default class Minesweeper {
             switch (data.selectedLevel) {
                 case 'beginner': {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.beginner;
-                    personalRecordValueDiv.innerHTML = data.scoreRecord.beginner;
+                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.beginner}s`;
                 } break;
                 case 'intermediate': {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.intermediate;
-                    personalRecordValueDiv.innerHTML = data.scoreRecord.intermediate;
+                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.intermediate}s`;
                 } break;
                 case 'expert': {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.expert;
-                    personalRecordValueDiv.innerHTML = data.scoreRecord.expert;
+                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.expert}s`;
                 } break;
                 case 'real-sapper': {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.realSapper;
-                    personalRecordValueDiv.innerHTML = data.scoreRecord.realSapper;
+                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.realSapper}s`;
                 } break;
             }
+
+            this.newGameButtonText = 'Nowa gra';
+            this.loseScreenText = 'Przegrałeś!';
+            this.winScreenText = 'Wygrałeś!';
+            this.winScreenTextBeatenRecord = 'Pobiłeś swój rekord!';
         });
 
         this.updateMinesLeftLabel();
 
-        document.getElementById('game-time-value').innerHTML = 0;
+        let gameTimeValueDiv = document.getElementById('game-time-value')
+        if (typeof this.time != 'undefined') {
+            gameTimeValueDiv.innerHTML = `${this.time}s`;
+        } else {
+            gameTimeValueDiv.innerHTML = `0s`;
+        }
     }
 
     /**
@@ -64,7 +85,7 @@ export default class Minesweeper {
     /**
      * Return empty board-area element
      */
-    getBoardAreaElement() {
+    getFreshBoardAreaElement() {
         const boardArea = document.getElementById('board-area');
         boardArea.classList.remove('beginner-board-area')
         boardArea.classList.remove('intermediate-board-area')
@@ -76,7 +97,7 @@ export default class Minesweeper {
     /**
      * Return empty board element
      */
-    getBoardElement() {
+    getFreshBoardElement() {
         const board = document.getElementById('board');
         board.classList.remove('beginner-board');
         board.classList.remove('intermediate-board');
@@ -95,7 +116,7 @@ export default class Minesweeper {
             case 'beginner':     return 10;
             case 'intermediate': return 12;
             case 'expert':       return 16;
-            case 'real-sapper':   return 20;
+            case 'real-sapper':  return 20;
         }
     }
 
@@ -108,7 +129,7 @@ export default class Minesweeper {
             case 'beginner':     return 10;
             case 'intermediate': return 25;
             case 'expert':       return 35;
-            case 'real-sapper':   return 50;
+            case 'real-sapper':  return 50;
         }
     }
 
@@ -190,7 +211,6 @@ export default class Minesweeper {
             }
         }
 
-        console.log(gameBoardStructure);
         return gameBoardStructure;
     }
 
@@ -199,8 +219,8 @@ export default class Minesweeper {
      */
     initializeBoard() {
         const data = this.getUserData();
-        const boardArea = this.getBoardAreaElement();
-        const board = this.getBoardElement();
+        const boardArea = this.getFreshBoardAreaElement();
+        const board = this.getFreshBoardElement();
 
         const boardAreaClassName = `${data.selectedLevel}-board-area`;
         const boardClassName = `${data.selectedLevel}-board`;
@@ -251,7 +271,7 @@ export default class Minesweeper {
     }
 
     /**
-     * Open fields that has 0 bombs around specific field
+     * Add fields that has 0 bombs around it self to array
      */
     specifyFieldsToOpen(row, column) {
         // [row-1][column-1]  [row-1][column]  [row-1][column+1]
@@ -298,13 +318,13 @@ export default class Minesweeper {
      */
     initializeGameTimer() {
         let gameTimeValueDiv = document.getElementById('game-time-value');
-        let time = 0;
+        this.time = 0;
 
         this.clearGameTimer();
 
         this.timer = setInterval(() => {
-            time += 1;
-            gameTimeValueDiv.innerHTML = time;
+            this.time += 1;
+            gameTimeValueDiv.innerHTML = `${this.time}s`;
         }, 1000);
     }
 
@@ -314,14 +334,49 @@ export default class Minesweeper {
     clearGameTimer() {
         if (this.timer != null) {
             clearInterval(this.timer);
+            this.time = 0;
         }
+    }
+
+    /**
+     * Create lose screen on top of board
+     */
+    displayLoseScreenOnBoard() {
+        const board = document.getElementById('board');
+
+        const loseStatusInfoDiv = document.createElement('div');
+        loseStatusInfoDiv.classList.add('board-game-status-div');
+
+        const loseStatusInfoContent = document.createElement('div');
+        loseStatusInfoContent.classList.add('board-game-status-content');
+
+        const restartGameButton = document.createElement('button');
+        restartGameButton.classList.add('restart-game-button');
+        restartGameButton.innerHTML = this.newGameButtonText;
+        restartGameButton.addEventListener('click', () => {
+            this.initializeGameBoard();
+        });
+
+        const loseStatusInfoText = document.createElement('span');
+        loseStatusInfoText.classList.add('game-lost-text');
+        loseStatusInfoText.innerHTML = this.loseScreenText;
+
+        loseStatusInfoContent.appendChild(loseStatusInfoText);
+        loseStatusInfoContent.appendChild(document.createElement('br'));
+        loseStatusInfoContent.appendChild(restartGameButton);
+
+        loseStatusInfoDiv.appendChild(loseStatusInfoContent);
+        
+        board.appendChild(loseStatusInfoDiv);
     }
 
     /**
      * Handle lose
      */
     handleLose() {
-        console.log('lose');
+        clearInterval(this.timer);
+
+        this.displayLoseScreenOnBoard();
     }
 
     /**
