@@ -305,6 +305,8 @@ export default class Minesweeper {
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
             if (amountOfBombsAroundField != 0) {
                 field.innerHTML = amountOfBombsAroundField;
+            } else {
+                field.innerHTML = '';
             }
             field = this.getFieldWithOpenStatus(field);
             field.classList.add('board-field-open');
@@ -339,7 +341,7 @@ export default class Minesweeper {
     }
 
     /**
-     * Create lose screen on top of board
+     * Create lose screen on top of board and display it
      */
     displayLoseScreenOnBoard() {
         const board = document.getElementById('board');
@@ -380,16 +382,64 @@ export default class Minesweeper {
     }
 
     /**
+     * Create win screen on top of board and display it
+     */
+    displayWinScreenOnBoard() {
+        const board = document.getElementById('board');
+
+        const winStatusInfoDiv = document.createElement('div');
+        winStatusInfoDiv.classList.add('board-game-status-div');
+
+        const winStatusInfoContent = document.createElement('div');
+        winStatusInfoContent.classList.add('board-game-status-content');
+
+        const restartGameButton = document.createElement('button');
+        restartGameButton.classList.add('restart-game-button');
+        restartGameButton.innerHTML = this.newGameButtonText;
+        restartGameButton.addEventListener('click', () => {
+            this.initializeGameBoard();
+        });
+
+        const winStatusInfoText = document.createElement('span');
+        winStatusInfoText.classList.add('game-lost-text');
+        winStatusInfoText.innerHTML = this.winScreenText;
+
+        winStatusInfoContent.appendChild(winStatusInfoText);
+        winStatusInfoContent.appendChild(document.createElement('br'));
+        winStatusInfoContent.appendChild(restartGameButton);
+
+        winStatusInfoDiv.appendChild(winStatusInfoContent);
+        
+        board.appendChild(winStatusInfoDiv);
+    }
+
+    /**
+     * Update record if has been beaten
+     */
+    updateRecordIfHasBeenBeaten() {
+        let score = this.time;
+        let record = this.userData.getCurrentlySelectedLevelScoreRecord();
+        
+        if (record > score || record == 0) {
+            this.userData.updateCurrentlySelectedLevelScoreRecord(score);
+        }
+    }
+
+    /**
      * Handle win
      */
     handleWin() {
-        console.log('win');
+        clearInterval(this.timer);
+
+        this.displayWinScreenOnBoard();
+        this.updateRecordIfHasBeenBeaten()
+        this.setContentOfLabels();
     }
 
     /**
      * Check if user won or lost
      */
-    checkIfWon() {
+    checkIfWin() {
         let boardSize = this.getBoardSize();
         let bombsAmount = this.getBombsAmount();
         let fieldsAmount = boardSize * boardSize;
@@ -418,7 +468,7 @@ export default class Minesweeper {
         if (field.innerHTML == '🚩') return;
 
         // first initial click
-        if (this.gameBoardStructureGenerated == false) {
+        if (!this.gameBoardStructureGenerated) {
             // generate and randomize game
             this.initializeGame(field);
         }
@@ -445,7 +495,7 @@ export default class Minesweeper {
             }
 
             // check if user won
-            this.checkIfWon();
+            this.checkIfWin();
         }
 
         this.openedFields += 1;

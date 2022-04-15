@@ -86,4 +86,25 @@ export default class UserData {
         selectLevel.value = data.selectedLevel;
 
     }
+
+    /**
+     * Return score record of currently selected level
+     */
+    getCurrentlySelectedLevelScoreRecord() {
+        const data = this.getUserDataLocalStorageValue();
+        let currentlySelectedLevel = data.selectedLevel;
+
+        return data.scoreRecord[currentlySelectedLevel];
+    }
+
+    /**
+     * Update score record of currently selected level
+     */
+    updateCurrentlySelectedLevelScoreRecord(score) {
+        const data = this.getUserDataLocalStorageValue();
+        let currentlySelectedLevel = data.selectedLevel;
+
+        data.scoreRecord[currentlySelectedLevel] = score;
+        this.saveUserDataLocalStorage(data);
+    }
 }
