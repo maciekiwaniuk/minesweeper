@@ -455,7 +455,7 @@ export default class Minesweeper {
      * Initialize new game
      */
     initializeGame(initialField) {
-        this.openedFields = 1;
+        this.openedFields = 0;
 
         this.gameBoardStructure = this.getGameBoardStructure(initialField);
         this.gameBoardStructureGenerated = true;
@@ -488,7 +488,12 @@ export default class Minesweeper {
                 field.innerHTML = amountOfBombsAroundField;
                 field.classList.add(`field-text-color-${amountOfBombsAroundField}`);
             }
-            field = this.getFieldWithOpenStatus(field);
+
+            if (field.getAttribute('data-field-status') != 'open') {
+                this.openedFields += 1;
+                field = this.getFieldWithOpenStatus(field);
+            }
+            
             // if field doesn't adjoin with any field with bomb - open adjoin fields
             if (amountOfBombsAroundField == 0) {
                 // clear array with fields to open
@@ -501,8 +506,8 @@ export default class Minesweeper {
             this.checkIfWin();
         }
 
-        this.openedFields += 1;
         field.classList.add('board-field-open');
+        
     }
 
     /**
