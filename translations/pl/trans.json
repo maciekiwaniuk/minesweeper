@@ -18,6 +18,10 @@
             "realSapper": "Rekord na prawdziwym saperze"
         }
     },
+    "game": {
+        "win": "Wygrałeś!",
+        "lose": "Przegrałeś!"
+    },
     "levelBar": {
         "newGame": "Nowa gra"
     },

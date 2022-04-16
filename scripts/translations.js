@@ -129,6 +129,11 @@ export default class Translations {
             document.getElementById('expert-level').textContent = `${transDict.difficultyLevels.expert}`;
             document.getElementById('real-sapper-level').textContent = `${transDict.difficultyLevels.realSapper}`;
 
+            // game win/lose screen - try catch because elements don't exist all the time
+            try { document.getElementById('restart-game-button').textContent = `${transDict.levelBar.newGame}`; } catch (e) { }
+            try { document.getElementById('game-win-text').textContent = `${transDict.game.win}`; } catch (e) {  }
+            try { document.getElementById('game-lose-text').textContent = `${transDict.game.lose}`; } catch (e) {  }
+
             // footer
             document.getElementById('footer-text').textContent = `${transDict.footer.author} - ${transDict.footer.text}`;
         });

@@ -18,6 +18,10 @@
             "realSapper": "Record on real sapper"
         }
     },
+    "game": {
+        "win": "You won!",
+        "lose": "You lost!"
+    },
     "levelBar": {
         "newGame": "New game"
     },

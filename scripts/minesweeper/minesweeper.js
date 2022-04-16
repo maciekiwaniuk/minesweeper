@@ -59,10 +59,9 @@ export default class Minesweeper {
                 } break;
             }
 
-            this.newGameButtonText = 'Nowa gra';
-            this.loseScreenText = 'Przegrałeś!';
-            this.winScreenText = 'Wygrałeś!';
-            this.winScreenTextBeatenRecord = 'Pobiłeś swój rekord!';
+            this.newGameButtonText = promiseDict.levelBar.newGame;
+            this.loseScreenText = promiseDict.game.lose;
+            this.winScreenText = promiseDict.game.win;
         });
 
         this.updateMinesLeftLabel();
@@ -305,6 +304,7 @@ export default class Minesweeper {
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
             if (amountOfBombsAroundField != 0) {
                 field.innerHTML = amountOfBombsAroundField;
+                field.classList.add(`field-text-color-${amountOfBombsAroundField}`);
             } else {
                 field.innerHTML = '';
             }
@@ -353,14 +353,15 @@ export default class Minesweeper {
         loseStatusInfoContent.classList.add('board-game-status-content');
 
         const restartGameButton = document.createElement('button');
-        restartGameButton.classList.add('restart-game-button');
+        restartGameButton.setAttribute('id', 'restart-game-button');
         restartGameButton.innerHTML = this.newGameButtonText;
         restartGameButton.addEventListener('click', () => {
             this.initializeGameBoard();
         });
 
         const loseStatusInfoText = document.createElement('span');
-        loseStatusInfoText.classList.add('game-lost-text');
+        loseStatusInfoText.setAttribute('id', 'game-lose-text');
+        loseStatusInfoText.classList.add('game-info-text');
         loseStatusInfoText.innerHTML = this.loseScreenText;
 
         loseStatusInfoContent.appendChild(loseStatusInfoText);
@@ -394,14 +395,15 @@ export default class Minesweeper {
         winStatusInfoContent.classList.add('board-game-status-content');
 
         const restartGameButton = document.createElement('button');
-        restartGameButton.classList.add('restart-game-button');
+        restartGameButton.setAttribute('id', 'restart-game-button');
         restartGameButton.innerHTML = this.newGameButtonText;
         restartGameButton.addEventListener('click', () => {
             this.initializeGameBoard();
         });
 
         const winStatusInfoText = document.createElement('span');
-        winStatusInfoText.classList.add('game-lost-text');
+        winStatusInfoText.setAttribute('id', 'game-win-text');
+        winStatusInfoText.classList.add('game-info-text');
         winStatusInfoText.innerHTML = this.winScreenText;
 
         winStatusInfoContent.appendChild(winStatusInfoText);
@@ -484,6 +486,7 @@ export default class Minesweeper {
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
             if (amountOfBombsAroundField != 0) {
                 field.innerHTML = amountOfBombsAroundField;
+                field.classList.add(`field-text-color-${amountOfBombsAroundField}`);
             }
             field = this.getFieldWithOpenStatus(field);
             // if field doesn't adjoin with any field with bomb - open adjoin fields

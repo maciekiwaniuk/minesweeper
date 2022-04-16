@@ -28,7 +28,7 @@
     min-width: 50%;
 }
 
-.restart-game-button {
+#restart-game-button {
     margin-top: 1vh;
     min-width: 40%;
     height: 4.5vh;
@@ -38,16 +38,16 @@
     background-color: var(--background-color);
     color: white;
 }
-.restart-game-button:hover {
+#restart-game-button:hover {
     background-color: var(--lighter-background-color);
     cursor: pointer;
 }
 
-.game-lost-text {
+.game-info-text {
     font-size: 1rem;
 }
 @media (min-width: 40rem) {
-    .game-lost-text {
+    .game-info-text {
         font-size: 1.3rem;
     }
 }
