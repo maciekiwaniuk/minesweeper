@@ -9,13 +9,16 @@
 
 .level-bar #select-level {
     min-width: 25%;
-    height: 4.5vh;
+    min-height: 4.5vh;
     font-size: 1rem;
     border-radius: 1.2rem;
     border: solid white 2px;
     background-color: var(--background-color);
     color: white;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .level-bar #select-level:hover {
@@ -24,13 +27,22 @@
 }
 
 .level-bar #new-game-button {
-    min-width: 15%;
-    height: 4.5vh;
+    min-width: 25%;
+    min-height: 4.5vh;
     font-size: 1rem;
     border-radius: 1.2rem;
     border: solid white 2px;
     background-color: var(--background-color);
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 40rem) {
+    .level-bar #new-game-button {
+        min-width: 15%;
+    }
 }
 
 .level-bar #new-game-button:hover {
