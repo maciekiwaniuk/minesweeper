@@ -31,7 +31,7 @@
 #restart-game-button {
     margin-top: 1vh;
     min-width: 40%;
-    height: 4.5vh;
+    min-height: 4.5vh;
     font-size: 1rem;
     border-radius: 1.2rem;
     border: solid white 2px;
