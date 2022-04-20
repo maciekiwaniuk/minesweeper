@@ -163,33 +163,33 @@
 }
 
 /* Real sapper difficulty level - 20x20 fields */
-.real-sapper-board-area {
+.realSapper-board-area {
     width: 100%;
     height: 101vw;
     font-size: 0.6rem;
 }
-.real-sapper-board {
+.realSapper-board {
     width: 99vw;
     height: 99vw;
     grid-template-columns: repeat(20, 1fr);
     grid-template-rows: repeat(20, 1fr);
 }
 @media (min-width: 30rem) {
-    .real-sapper-board-area {
+    .realSapper-board-area {
         height: 31rem;
         font-size: 0.8rem;
     }
-    .real-sapper-board {
+    .realSapper-board {
         width: 30rem;
         height: 30rem;
     }
 }
 @media (min-width: 50rem) {
-    .real-sapper-board-area {
+    .realSapper-board-area {
         height: 36rem;
         font-size: 1rem;
     }
-    .real-sapper-board {
+    .realSapper-board {
         width: 35rem;
         height: 35rem;
     }

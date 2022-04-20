@@ -98,7 +98,7 @@ export default class Translations {
                 case 'expert': {
                     personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.expert}:\xa0`;
                 } break;
-                case 'real-sapper': {
+                case 'realSapper': {
                     personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.realSapper}:\xa0`;
                 } break;
             }
@@ -127,7 +127,7 @@ export default class Translations {
             document.getElementById('beginner-level').textContent = `${transDict.difficultyLevels.beginner}`;
             document.getElementById('intermediate-level').textContent = `${transDict.difficultyLevels.intermediate}`;
             document.getElementById('expert-level').textContent = `${transDict.difficultyLevels.expert}`;
-            document.getElementById('real-sapper-level').textContent = `${transDict.difficultyLevels.realSapper}`;
+            document.getElementById('realSapper-level').textContent = `${transDict.difficultyLevels.realSapper}`;
 
             // game win/lose screen - try catch because elements don't exist all the time
             try { document.getElementById('restart-game-button').textContent = `${transDict.levelBar.newGame}`; } catch (e) { }
