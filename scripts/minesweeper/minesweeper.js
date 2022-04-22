@@ -302,6 +302,12 @@ export default class Minesweeper {
             let x = field.getAttribute('data-field-x');
             let y = field.getAttribute('data-field-y');
             let amountOfBombsAroundField = this.gameBoardStructure[x][y];
+
+            if (field.innerHTML == '🚩') {
+                field.innerHTML == '';
+                this.bombsLeft += 1;
+            }
+
             if (amountOfBombsAroundField != 0) {
                 field.innerHTML = amountOfBombsAroundField;
                 field.classList.add(`field-text-color-${amountOfBombsAroundField}`);
@@ -500,6 +506,7 @@ export default class Minesweeper {
                 this.fieldsToOpen = [];
                 this.specifyFieldsToOpen(parseInt(x), parseInt(y));
                 this.openFieldsToOpen()
+                this.updateMinesLeftLabel()
             }
 
             // check if user won
