@@ -10,13 +10,13 @@
 
 # Installation
 
-To successfully run application you need to have installed some type of locally running server, for example [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+To successfully run application you need to have installed some type of locally running server, for example [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 
 Open folder where you want to have project files, open console and then clone the repository
 
     git clone https://github.com/maciekiwaniuk/minesweeper
 
-Run application via local server and open index.html
+Run application via local server and access it at http://localhost:5500 or http://127.0.0.1:5500
 
 # Application appearance
 
