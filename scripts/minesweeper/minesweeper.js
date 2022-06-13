@@ -1,5 +1,5 @@
-import UserData from "../minesweeper/user_data.js";
-import Translations from "../translations.js";
+import UserData from '../minesweeper/user_data.js';
+import Translations from '../translations.js';
 
 export default class Minesweeper {
     constructor() {
@@ -15,11 +15,11 @@ export default class Minesweeper {
      * Assign specific events to specific elements
      */
     assignEvents() {
-        document.getElementById('new-game-button').addEventListener('click', () => {
+        document.querySelector('#new-game-button').addEventListener('click', () => {
             this.initializeGameBoard();
         });
 
-        document.getElementById('select-level').addEventListener('change', () => {
+        document.querySelector('#select-level').addEventListener('change', () => {
             this.initializeGameBoard();
         });
 
@@ -38,8 +38,8 @@ export default class Minesweeper {
         let data = this.getUserData();
 
         this.translations.getTranslationPromiseDict().then((promiseDict) => {
-            let levelOfDifficultyValueDiv = document.getElementById('level-of-difficulty-value');
-            let personalRecordValueDiv = document.getElementById('personal-record-value');
+            let levelOfDifficultyValueDiv = document.querySelector('#level-of-difficulty-value');
+            let personalRecordValueDiv = document.querySelector('#personal-record-value');
             switch (data.selectedLevel) {
                 case 'beginner': {
                     levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.beginner;
@@ -66,7 +66,7 @@ export default class Minesweeper {
 
         this.updateMinesLeftLabel();
 
-        let gameTimeValueDiv = document.getElementById('game-time-value')
+        let gameTimeValueDiv = document.querySelector('#game-time-value')
         if (typeof this.time != 'undefined') {
             gameTimeValueDiv.innerHTML = `${this.time}s`;
         } else {
@@ -85,7 +85,7 @@ export default class Minesweeper {
      * Return empty board-area element
      */
     getFreshBoardAreaElement() {
-        const boardArea = document.getElementById('board-area');
+        const boardArea = document.querySelector('#board-area');
         boardArea.classList.remove('beginner-board-area')
         boardArea.classList.remove('intermediate-board-area')
         boardArea.classList.remove('expert-board-area')
@@ -97,7 +97,7 @@ export default class Minesweeper {
      * Return empty board element
      */
     getFreshBoardElement() {
-        const board = document.getElementById('board');
+        const board = document.querySelector('#board');
         board.classList.remove('beginner-board');
         board.classList.remove('intermediate-board');
         board.classList.remove('expert-board');
@@ -325,7 +325,7 @@ export default class Minesweeper {
      * Initialize timer after first initial click
      */
     initializeGameTimer() {
-        let gameTimeValueDiv = document.getElementById('game-time-value');
+        let gameTimeValueDiv = document.querySelector('#game-time-value');
         this.time = 0;
 
         this.clearGameTimer();
@@ -350,7 +350,7 @@ export default class Minesweeper {
      * Create lose screen on top of board and display it
      */
     displayLoseScreenOnBoard() {
-        const board = document.getElementById('board');
+        const board = document.querySelector('#board');
 
         const loseStatusInfoDiv = document.createElement('div');
         loseStatusInfoDiv.classList.add('board-game-status-div');
@@ -392,7 +392,7 @@ export default class Minesweeper {
      * Create win screen on top of board and display it
      */
     displayWinScreenOnBoard() {
-        const board = document.getElementById('board');
+        const board = document.querySelector('#board');
 
         const winStatusInfoDiv = document.createElement('div');
         winStatusInfoDiv.classList.add('board-game-status-div');
@@ -556,7 +556,7 @@ export default class Minesweeper {
      * Update mines left label
      */
     updateMinesLeftLabel() {
-        let minesLeftDiv = document.getElementById('mines-left-value');
+        let minesLeftDiv = document.querySelector('#mines-left-value');
         minesLeftDiv.innerHTML = this.bombsLeft;
     }
 

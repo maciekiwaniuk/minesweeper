@@ -13,7 +13,7 @@ export default class UserData {
         const self = this;
 
         // change select level
-        const selectLevel = document.getElementById('select-level');
+        const selectLevel = document.querySelector('#select-level');
         selectLevel.addEventListener('change', function() {
             self.changeSelectLevelUserData(selectLevel.value);
         });
@@ -82,7 +82,7 @@ export default class UserData {
         const data = this.getUserDataLocalStorageValue();
 
         // set option in level of difficulty select
-        const selectLevel = document.getElementById('select-level');
+        const selectLevel = document.querySelector('#select-level');
         selectLevel.value = data.selectedLevel;
 
     }

@@ -1,5 +1,5 @@
-import Translations from "../scripts/translations.js";
-import Minesweeper from "../scripts/minesweeper/minesweeper.js";
+import Translations from '../scripts/translations.js';
+import Minesweeper from '../scripts/minesweeper/minesweeper.js';
 
 class Main {
     constructor() {

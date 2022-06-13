@@ -1,4 +1,4 @@
-import UserData from "../scripts/minesweeper/user_data.js";
+import UserData from '../scripts/minesweeper/user_data.js';
 
 export default class Translations {
     constructor() {
@@ -18,11 +18,11 @@ export default class Translations {
         const self = this;
 
         // change language to polish
-        document.getElementById('polish-flag').addEventListener('click', () => {
+        document.querySelector('#polish-flag').addEventListener('click', () => {
             self.changeSelectedLanguage('pl');
         });
         // change language to english
-        document.getElementById('english-flag').addEventListener('click', () => {
+        document.querySelector('#english-flag').addEventListener('click', () => {
             self.changeSelectedLanguage('en');
         });
     }
@@ -87,7 +87,7 @@ export default class Translations {
     setTextContentOfPersonalRecordLabel() {
         let data = this.userData.getUserDataLocalStorageValue();
         this.getTranslationPromiseDict().then((transDict) => {
-            var personalRecordLabel = document.getElementById('personal-record-label');
+            var personalRecordLabel = document.querySelector('#personal-record-label');
             switch (data.selectedLevel) {
                 case 'beginner': {
                     personalRecordLabel.textContent = `${transDict.infoBar.personalRecord.beginner}:\xa0`;
@@ -115,27 +115,27 @@ export default class Translations {
             document.documentElement.setAttribute('lang', this.getLanguageLocalStorageValue());
 
             // header
-            document.getElementById('header-text').textContent = transDict.header;
+            document.querySelector('#header-text').textContent = transDict.header;
 
             // game info bar
-            document.getElementById('level-of-difficulty-label').textContent = `${transDict.infoBar.levelOfDifficulty}:\xa0`;
-            document.getElementById('mines-left-label').textContent = `${transDict.infoBar.minesLeft}:\xa0`;
-            document.getElementById('game-time-label').textContent = `${transDict.infoBar.gameTime}:\xa0`;
+            document.querySelector('#level-of-difficulty-label').textContent = `${transDict.infoBar.levelOfDifficulty}:\xa0`;
+            document.querySelector('#mines-left-label').textContent = `${transDict.infoBar.minesLeft}:\xa0`;
+            document.querySelector('#game-time-label').textContent = `${transDict.infoBar.gameTime}:\xa0`;
 
             // level bar
-            document.getElementById('new-game-button').textContent = `${transDict.levelBar.newGame}`;
-            document.getElementById('beginner-level').textContent = `${transDict.difficultyLevels.beginner}`;
-            document.getElementById('intermediate-level').textContent = `${transDict.difficultyLevels.intermediate}`;
-            document.getElementById('expert-level').textContent = `${transDict.difficultyLevels.expert}`;
-            document.getElementById('realSapper-level').textContent = `${transDict.difficultyLevels.realSapper}`;
+            document.querySelector('#new-game-button').textContent = `${transDict.levelBar.newGame}`;
+            document.querySelector('#beginner-level').textContent = `${transDict.difficultyLevels.beginner}`;
+            document.querySelector('#intermediate-level').textContent = `${transDict.difficultyLevels.intermediate}`;
+            document.querySelector('#expert-level').textContent = `${transDict.difficultyLevels.expert}`;
+            document.querySelector('#realSapper-level').textContent = `${transDict.difficultyLevels.realSapper}`;
 
             // game win/lose screen - try catch because elements don't exist all the time
-            try { document.getElementById('restart-game-button').textContent = `${transDict.levelBar.newGame}`; } catch (e) { }
-            try { document.getElementById('game-win-text').textContent = `${transDict.game.win}`; } catch (e) {  }
-            try { document.getElementById('game-lose-text').textContent = `${transDict.game.lose}`; } catch (e) {  }
+            try { document.querySelector('#restart-game-button').textContent = `${transDict.levelBar.newGame}`; } catch (e) { }
+            try { document.querySelector('#game-win-text').textContent = `${transDict.game.win}`; } catch (e) {  }
+            try { document.querySelector('#game-lose-text').textContent = `${transDict.game.lose}`; } catch (e) {  }
 
             // footer
-            document.getElementById('footer-text').textContent = `${transDict.footer.author} - ${transDict.footer.text}`;
+            document.querySelector('#footer-text').textContent = `${transDict.footer.author} - ${transDict.footer.text}`;
         });
 
         this.setTextContentOfPersonalRecordLabel();
