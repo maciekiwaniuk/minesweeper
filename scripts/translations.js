@@ -135,7 +135,8 @@ export default class Translations {
             try { document.querySelector('#game-lose-text').textContent = `${transDict.game.lose}`; } catch (e) {  }
 
             // footer
-            document.querySelector('#footer-text').textContent = `${transDict.footer.author} - ${transDict.footer.text}`;
+            let currentYear = new Date().getFullYear();
+            document.querySelector('#footer-text').textContent = `${transDict.footer.author} - ${currentYear} ${transDict.footer.text}`;
         });
 
         this.setTextContentOfPersonalRecordLabel();
