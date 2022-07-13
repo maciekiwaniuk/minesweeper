@@ -67,7 +67,7 @@ export default class Translations {
      * Return dictionary with translations of specific language
      */
     getTransPromiseDictOfSpecificLanguage(language) {
-        return fetch('../translations/'+language+'/trans.json').then((response) => {
+        return fetch(`../translations/${language}.json`).then((response) => {
             return response.json();
         });
     }
