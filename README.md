@@ -1,11 +1,9 @@
 # Minesweeper
 
 > ### Project of the minesweeper game with possibility to change level difficulty.
-> ###
-> ### Online: https://maciekiwaniuk-minesweeper.herokuapp.com/
 
-- The whole application is made in JavaScript ES6.
-- Application is responsive, made with clear CSS.
+- Application is made in JavaScript ES6.
+- Web app is responsive, made with clear CSS.
 - User can choose one of two available languages - English and Polish.
 
 # Installation
