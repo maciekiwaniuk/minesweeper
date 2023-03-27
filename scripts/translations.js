@@ -6,6 +6,7 @@ export default class Translations {
         this.languageLocalStorageName = 'selected-language';
         this.defaultLanguage = 'en';
         this.selectedLanguage = this.getLanguageLocalStorageValue();
+        this.cachedTranslationPromises = {};
 
         this.setTextContentOfAllElements();
         this.assignEvents();
@@ -76,9 +77,18 @@ export default class Translations {
      * Return Promise of dictionary with text content of selected language
      */
     getTranslationPromiseDict() {
-        return this.getTransPromiseDictOfSpecificLanguage(
-            this.getLanguageLocalStorageValue()
+        const selectedLanguage = this.getLanguageLocalStorageValue();
+
+        if (selectedLanguage in this.cachedTranslationPromises) {
+            return this.cachedTranslationPromises[selectedLanguage];
+        }
+
+        const translationPromise = this.getTransPromiseDictOfSpecificLanguage(
+            selectedLanguage
         );
+
+        this.cachedTranslationPromises[selectedLanguage] = translationPromise;
+        return translationPromise;
     }
 
     /**
