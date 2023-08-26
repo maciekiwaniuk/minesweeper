@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
 :root {
-    --background-color: #170A1A;
-    --lighter-background-color: #190F24;
+    --background-color: #111827;
+    --lighter-background-color: #1e293b;
 
-    --content-background-color: #2a2734;
-    --content-border-color: white;
+    --content-background-color: #1f2937;
+    --content-border-color: #374151;
 
-    --header-text-color: rgb(145, 139, 139);
+    --header-text-color: #a1a1aa;
 
-    --info-bar-text-color: rgb(145, 139, 139);
+    --info-bar-text-color: #a1a1aa;
 
-    --level-bar-text-color: rgb(145, 139, 139);
+    --level-bar-text-color: #a1a1aa;
 
-    --field-color: rgb(145, 139, 139);
-    --field-hover-color: rgb(200, 200, 200);
-    --field-open-color: rgb(89, 87, 85);
-    --field-border-color: white;
-    --field-text-color:white;
+    --field-color: #6b7280;
+    --field-hover-color: #4b5563;
+    --field-open-color: #374151;
+    --field-border-color: #030712;
+    --field-text-color:#d1d5db;
 
-    --footer-text-color: rgb(145, 139, 139);
+    --footer-text-color: #a1a1aa;
 }
 
 * {

@@ -1,5 +1,13 @@
 import UserData from '../minesweeper/user_data.js';
 import Translations from '../translations.js';
+import { 
+    BEGINNER_LEVEL,
+    INTERMEDIATE_LEVEL, 
+    EXPERT_LEVEL, 
+    REAL_SAPPER_LEVEL,
+    OPEN_FIELD_STATUS,
+    HIDDEN_FIELD_STATUS
+} from '../constants.js';
 
 export default class Minesweeper {
     constructor() {
@@ -37,32 +45,33 @@ export default class Minesweeper {
     setContentOfLabels() {
         let data = this.getUserData();
 
-        this.translations.getTranslationPromiseDict().then((promiseDict) => {
-            let levelOfDifficultyValueDiv = document.querySelector('#level-of-difficulty-value');
-            let personalRecordValueDiv = document.querySelector('#personal-record-value');
-            switch (data.selectedLevel) {
-                case 'beginner': {
-                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.beginner;
-                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.beginner}s`;
-                } break;
-                case 'intermediate': {
-                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.intermediate;
-                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.intermediate}s`;
-                } break;
-                case 'expert': {
-                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.expert;
-                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.expert}s`;
-                } break;
-                case 'realSapper': {
-                    levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.realSapper;
-                    personalRecordValueDiv.innerHTML = `${data.scoreRecord.realSapper}s`;
-                } break;
-            }
+        this.translations.getTranslationPromiseDict()
+            .then(promiseDict => {
+                let levelOfDifficultyValueDiv = document.querySelector('#level-of-difficulty-value');
+                let personalRecordValueDiv = document.querySelector('#personal-record-value');
+                switch (data.selectedLevel) {
+                    case BEGINNER_LEVEL: {
+                        levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.beginner;
+                        personalRecordValueDiv.innerHTML = `${data.scoreRecord.beginner}s`;
+                    } break;
+                    case INTERMEDIATE_LEVEL: {
+                        levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.intermediate;
+                        personalRecordValueDiv.innerHTML = `${data.scoreRecord.intermediate}s`;
+                    } break;
+                    case EXPERT_LEVEL: {
+                        levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.expert;
+                        personalRecordValueDiv.innerHTML = `${data.scoreRecord.expert}s`;
+                    } break;
+                    case REAL_SAPPER_LEVEL: {
+                        levelOfDifficultyValueDiv.innerHTML = promiseDict.difficultyLevels.realSapper;
+                        personalRecordValueDiv.innerHTML = `${data.scoreRecord.realSapper}s`;
+                    } break;
+                }
 
-            this.newGameButtonText = promiseDict.levelBar.newGame;
-            this.loseScreenText = promiseDict.game.lose;
-            this.winScreenText = promiseDict.game.win;
-        });
+                this.newGameButtonText = promiseDict.levelBar.newGame;
+                this.loseScreenText = promiseDict.game.lose;
+                this.winScreenText = promiseDict.game.win;
+            });
 
         this.updateMinesLeftLabel();
 
@@ -112,10 +121,10 @@ export default class Minesweeper {
     getBoardSize() {
         const data = this.getUserData();
         switch (data.selectedLevel) {
-            case 'beginner':     return 10;
-            case 'intermediate': return 12;
-            case 'expert':       return 16;
-            case 'realSapper':  return 20;
+            case BEGINNER_LEVEL:     return 10;
+            case INTERMEDIATE_LEVEL: return 12;
+            case EXPERT_LEVEL:       return 16;
+            case REAL_SAPPER_LEVEL:  return 20;
         }
     }
 
@@ -125,10 +134,10 @@ export default class Minesweeper {
     getBombsAmount() {
         const data = this.getUserData();
         switch (data.selectedLevel) {
-            case 'beginner':     return 10;
-            case 'intermediate': return 20;
-            case 'expert':       return 45;
-            case 'realSapper':  return 80;
+            case BEGINNER_LEVEL:     return 10;
+            case INTERMEDIATE_LEVEL: return 20;
+            case EXPERT_LEVEL:       return 45;
+            case REAL_SAPPER_LEVEL:  return 80;
         }
     }
 
@@ -136,8 +145,8 @@ export default class Minesweeper {
      * Return game board structure as filled two dimensional array
      */
      getGameBoardStructure(firstInitialField) {
-        var generatedUniqueBombPositions = 0;
         const gameBoardStructure = [];
+        let generatedUniqueBombPositions = 0;
         let firstInitialFieldX = parseInt(firstInitialField.getAttribute('data-field-x'));
         let firstInitialFieldY = parseInt(firstInitialField.getAttribute('data-field-y'));
 
@@ -233,7 +242,7 @@ export default class Minesweeper {
                 const field = document.createElement('div');
                 field.setAttribute('data-field-x', x);
                 field.setAttribute('data-field-y', y);
-                field.setAttribute('data-field-status', 'hidden');
+                field.setAttribute('data-field-status', HIDDEN_FIELD_STATUS);
                 field.classList.add(fieldClassName);
                 field.classList.add('board-field');
                 board.appendChild(field);
@@ -252,7 +261,7 @@ export default class Minesweeper {
      * Return field with open attribute set to true
      */
     getFieldWithOpenStatus(field) {
-        field.setAttribute('data-field-status', 'open');
+        field.setAttribute('data-field-status', OPEN_FIELD_STATUS);
         return field;
     }
 
@@ -263,9 +272,9 @@ export default class Minesweeper {
      */
     handleSpecificFieldAndCheckNearbyAlso(row, column) {
         let field = this.getFieldElement(row, column);
-        if (field.getAttribute('data-field-status') == 'open') return;
+        if (field.getAttribute('data-field-status') == OPEN_FIELD_STATUS) return;
         this.fieldsToOpen.push(field);
-        field.setAttribute('data-field-status', 'open');
+        field.setAttribute('data-field-status', OPEN_FIELD_STATUS);
         this.specifyFieldsToOpen(row, column)
     }
 
@@ -495,7 +504,7 @@ export default class Minesweeper {
                 field.classList.add(`field-text-color-${amountOfBombsAroundField}`);
             }
 
-            if (field.getAttribute('data-field-status') != 'open') {
+            if (field.getAttribute('data-field-status') != OPEN_FIELD_STATUS) {
                 this.openedFields += 1;
                 field = this.getFieldWithOpenStatus(field);
             }
@@ -525,7 +534,7 @@ export default class Minesweeper {
             field.innerHTML = '';
             this.bombsLeft += 1;
 
-        } else if (field.innerHTML == '' && field.getAttribute('data-field-status') != 'open') {
+        } else if (field.innerHTML == '' && field.getAttribute('data-field-status') != OPEN_FIELD_STATUS) {
             field.innerHTML = '🚩';
             this.bombsLeft -= 1;
         }
@@ -540,12 +549,12 @@ export default class Minesweeper {
         const boardFields = document.querySelectorAll('.board-field');
         boardFields.forEach((field) => {
             // left click
-            field.addEventListener('click', (event) => {
+            field.addEventListener('click', event => {
                 event.preventDefault();
                 this.handleLeftClickOnFieldEvent(field);
             });
             // right click
-            field.addEventListener('contextmenu', (event) => {
+            field.addEventListener('contextmenu', event => {
                 event.preventDefault();
                 this.handleRightClickOnFieldEvent(field);
             });
